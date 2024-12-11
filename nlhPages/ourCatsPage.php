@@ -147,7 +147,7 @@ require 'connectdb.php';
                             </p>
                         </a>
                         <p class="cat-breed">
-                            <?php echo $cat['cat_breed']; ?>
+                            <?php echo $cat['breed']; ?>
                         </p>
                         <p class="cat-age">
                             <?php echo $cat['cat_age']; ?>
