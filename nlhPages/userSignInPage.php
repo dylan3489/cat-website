@@ -117,14 +117,14 @@ if(isset($_SESSION['user_id'])){
         </nav>
 
     <!-- Page title -->
-    <div class="page-title">Welcome to Our Cats Page</div>
+    <div class="page-title">User Sign In Page</div>
 
     <!-- Create account link -->
     <div class="create-account-box">
-        <a href="signupcustomer.php">Create an Account</a>
+        <a href="userSignUpPage.php">Create an Account</a>
     </div>
 
-    <!-- Main content section -->
+    <!-- Main content -->
     <div class="main-container">
         <!-- Left box: Sign in form -->
         <div class="left-box">
@@ -141,7 +141,7 @@ if(isset($_SESSION['user_id'])){
                 <a href="changePasswordPage.php">Forgotten Password?</a><br><br>
                 <input type="submit" id="login" name="login" value="Login">
                 <input type="button" value="Register" class="button"
-                    onclick="location.href='signupcustomer.php';">
+                    onclick="location.href='userSignUpPage.php';">
                 <input type="button" value="Admin Login" class="button"
                     onclick="location.href='adminSignInPage.php';">
             </form>
@@ -149,7 +149,7 @@ if(isset($_SESSION['user_id'])){
 
         <!-- Right box: image -->
         <div class="right-box">
-            <img src=" " alt="Cat Image">
+            <img src="placeholder-image.jpg" alt="Cat Image">
         </div>
     </div>
 </body>
