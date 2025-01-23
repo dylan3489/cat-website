@@ -2,7 +2,13 @@
 session_start();
 
 require 'connectdb.php';
-// Check that the form has been submitted, using POST to check for hte submit key.
+
+// if the user is logged in, they are redirected
+if(isset($_SESSION['user_id'])){
+    header('Location:homePage.php');
+    }
+    
+// check that the form has been submitted, using POST to check for hte submit key.
 // then assigns the values submitted to variables of the the same name to use in sql queries.
 // password hash hashes the password securely using PHPs built in password_hash() function
 if (isset($_POST["submit"])) {
@@ -10,7 +16,7 @@ if (isset($_POST["submit"])) {
     $last_name = $_POST['last_name'];
     $date_of_birth = $_POST['date_of_birth'];
     $email = $_POST['email'];
-    $password_hash = password_hash($_POST['password_hash'], PASSWORD_DEFAULT);
+    $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $phone_number = $_POST['phone_number'];
     $street_address = $_POST['street_address'];
     $city = $_POST['city'];
@@ -18,15 +24,15 @@ if (isset($_POST["submit"])) {
     $admin_key = $_POST['admin_key'];
     $admin_code = $_POST['admin_code'];
 
-    // Get the maximum admin_key currently in the table
+    // get the maximum admin_key currently in the table
     $result = mysqli_query($con, "SELECT MAX(admin_key) AS max_id FROM users");
     $row = mysqli_fetch_assoc($result);
     $max_id = $row['max_id'];
 
-    // Calculate the next admin_key in the database
+    // calculate the next admin_key in the database
     $next_id = $max_id + 1;
 
-    // Verify the email
+    // verify the email is not alerady used
     $verify_query = mysqli_query($con, "SELECT email FROM users WHERE email='$email'");
     if (mysqli_num_rows($verify_query) != 0) {
         echo "<div class='message'>
@@ -36,17 +42,14 @@ if (isset($_POST["submit"])) {
     } else {
         $admin_reference_code = 'admin2319!!';
         if ($admin_code === $admin_reference_code) {
-            mysqli_query($con, "INSERT INTO users (first_name, last_name, date_of_birth, email, password_hash, phone_number, street_address, city, post_code, admin_key admin_status) 
+            mysqli_query($con, "INSERT INTO users (first_name, last_name, date_of_birth, email, password_hash, phone_number, street_address, city, post_code, admin_key, admin_status) 
                 VALUES ('$first_name', '$last_name', '$date_of_birth', '$email', '$password_hash', '$phone_number', '$street_address', '$city', '$post_code', '$admin_key', 1)") or die("Error Occured");
-            echo "<div class='message'>
-                       <p>Registration Successful!</p>
-                     </div> <br>";
-            header("Location: adminSignInPage.php");
+            echo '<script>alert("Registration Successful! Please sign in!");</script>';
+            echo '<script>window.location.href = "adminSignInPage.php";</script>';
             exit();
         } else {
-            echo "<div class='message'>
-                           <p>Invalid Admin Reference Code!</p>
-                         </div> <br>";
+            echo '<script>alert("Invalid Admin Reference Code!");</script>';
+            echo '<script>window.location.href = "adminSignUpPage.php";</script>';
         }
     }
 }
@@ -60,6 +63,7 @@ if (isset($_POST["submit"])) {
     <title>Administrator Sign Up - Nine Lives Haven</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
 
 <body>
@@ -245,6 +249,15 @@ if (isset($_POST["submit"])) {
                     </tr>
                     <tr>
                         <td>
+                            <label for="admin_key">Admin Key:</label>
+                        </td>
+                        <td>
+                            <input type="password" id="admin_key" name="admin_key" placeholder="Admin Key"
+                                required><br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <label for="admin_code">Admin Reference Code:</label>
                         </td>
                         <td>
@@ -254,12 +267,12 @@ if (isset($_POST["submit"])) {
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <a href="adminSignUpPage.php" class="admin-link">Create an admin account</a>
+                            <a href="userSignUpPage.php" class="admin-link">Not an adminstrator? Create a user account here! </a>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" id="submit" name="submit" value="Create new Account">
+                            <input type="submit" id="submit" name="submit" value="Register">
                         </td>
                     </tr>
                 </table>
