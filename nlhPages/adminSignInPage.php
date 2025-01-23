@@ -3,10 +3,10 @@ session_start();
 
 require 'connectdb.php';
 
+// if the user is logged in, they are redirected
 if(isset($_SESSION['user_id'])){
     header('Location:homePage.php');
     } else { ?>
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +16,8 @@ if(isset($_SESSION['user_id'])){
     <title>Administrator Sign In - Nine Lives Haven</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
 </head>
 
 <body>
@@ -23,7 +25,7 @@ if(isset($_SESSION['user_id'])){
         <nav class="banner">
             <a href="homePage.php"><img src="logo" class="logo" alt="Company Logo"></a>
             <!-- navigation bar -written using php to show 1 of three versions depending on 
-     the type of user i.e. Admin, Registered User or Visitor-->
+                    the type of user i.e. Admin, Registered User or Visitor-->
             <?php
             if (isset($_SESSION['loggedin'])) {
                 if (isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == 1) {
@@ -116,15 +118,15 @@ if(isset($_SESSION['user_id'])){
             ?>
         </nav>
 
-    <!-- Page title -->
-    <div class="page-title">Administrator Sign In!</div>
+    <!-- page title -->
+    <div class="page-title">Administrator Sign In</div>
 
-    <!-- Create account link -->
+    <!-- create account link -->
     <div class="create-account-box">
         <a href="signupcustomer.php">Create an Account</a>
     </div>
 
-    <!-- Main content -->
+    <!-- main content -->
     <div class="content">
         <div class="login-container">
             <h1 id="login-header">Administrator Sign In</h1>
@@ -141,13 +143,15 @@ if(isset($_SESSION['user_id'])){
                 <input type="submit" id="login" name="login" value="Login">
                 <input type="button" value="Register" id="register" class="button"
                     onclick="location.href='adminSignUpPage.php';">
+                <input type="button" value="User Login" class="button"
+                    onclick="location.href='userSignInPage.php';">
                 <br>
             </form>
         </div>
     </div>
 </body>
 
-        <!-- Footer -->
+        <!-- footer -->
 <footer class="footer">
     <div class="footer-section">
         <div>
