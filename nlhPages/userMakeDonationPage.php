@@ -1,19 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
 <?php
 session_start();
 
 // Connect to database
 require 'connectdb.php';
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
+?>
 
 <head>
     <title>Make a Donation - Nine Lives Haven</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
+
+<?php 
+// checks if the user is logged in, if not they are redirected
+if (!isset($_SESSION['user_id'])) {    
+    echo '<script>
+    window.onload = function() {
+        console.log("SweetAlert2 is loading..."); // Check if this log appears
+        if (typeof Swal === "undefined") {
+            console.log("Swal is undefined"); // This will tell you if SweetAlert2 is not loaded
+        } else {
+            console.log("Swal is defined"); // Confirm if Swal is available
+            Swal.fire({
+                icon: "warning",
+                title: "Sign In Required",
+                text: "Please sign in or create an account to make a donation!",
+                confirmButtonText: "Sign In",
+                confirmButtonColor: "#f4ac6d",
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "userSignInPage.php";
+                }
+            });
+        }
+    };
+</script>';
+
+
+    exit(); 
+}
+?>
 
 <body>
     <header>
@@ -136,6 +169,12 @@ require 'connectdb.php';
                 <button type="submit">Donate Now</button>
             </form>
         </div>
+
+        <script>
+        window.onload = function() {
+            console.log(typeof Swal); // Logs 'object' if Swal is loaded correctly
+        };
+    </script>
 
 </body>
 
