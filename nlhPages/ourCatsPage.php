@@ -1,18 +1,36 @@
-<?php
-session_start();
-
-require 'connectdb.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
 
 <head>
-    <title>Our Cats</title>
+    <title>Our Cats - Nine Lives Haven</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
 </head>
+
+<?php
+session_start();
+
+require 'connectdb.php';
+$cats = []; // empty array to avoid errors if no data is retrieved.
+
+// search and sorting (optional)
+$search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
+$sort = isset($_GET['sort']) ? mysqli_real_escape_string($con, $_GET['sort']) : 'cat_name';
+$order = isset($_GET['order']) && in_array($_GET['order'], ['asc', 'desc']) ? $_GET['order'] : 'asc';
+
+$query = "SELECT * FROM cats WHERE cat_name LIKE '%$search%' ORDER BY $sort $order";
+
+$result = mysqli_query($con, $query);
+
+if ($result) {
+    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC); // fetch all rows as an associative array
+} else {
+    echo "Error fetching data: " . mysqli_error($con);
+}
+?>
 
 <body>
     <header>
@@ -112,7 +130,7 @@ require 'connectdb.php';
             ?>
         </nav>
 
-        <div class="content">
+        <section class="content">
             <!-- this is the search/filter tab that allows users to filter cats by chosen attributes-->
             <form action="ourCatsPage.php" method="get">
                 <input type="text" name="search" class="search-bar"
@@ -132,7 +150,9 @@ require 'connectdb.php';
                 </select>
                 <input type="submit" value="Search">
             </form>
+            </section>
 
+            <section class="cat-profiles">
             <h1 id="cats-header">Our Cats</h1><br>
             <!-- this is the section where all cat profiles will be displayed from the database,
              where users can access their profiles or apply to adopt-->
@@ -140,7 +160,7 @@ require 'connectdb.php';
                 <?php foreach ($cats as $cat): ?>
                     <div class="cat-box">
                         <a href="catProfilePage.php?id=<?php echo $cat['cat_id']; ?>">
-                            <img src="nlhImages/<?php echo $cat['cat_id']; ?>.jpg" alt="<?php echo $cat['cat_name']; ?>"
+                            <img src="../nlhImages/<?php echo $cat['image_url']; ?>.jpg" alt="<?php echo $cat['cat_name']; ?>"
                                 style="height:200px; max-width:300px;">
                             <p class="cat-name">
                                 <?php echo $cat['cat_name']; ?>
@@ -158,15 +178,10 @@ require 'connectdb.php';
                         <p class="cat-requirements">
                             <?php echo $cat['special_requirements']; ?>
                         </p>
-                        <form method="post" action="applyForAdoption.php"><br>
-                            <input type="hidden" name="cat_id" value="<?= $cat['cat_id']; ?>">
-                            <input type="submit" value="Apply to Adopt">
-                        </form>
-
                     </div>
                 <?php endforeach; ?>
             </div>
-        </div>
+        </section>
 </body>
 
 <footer class="footer">
@@ -176,11 +191,12 @@ require 'connectdb.php';
         </div>
         <div>
 
-            <p>
+        <p>
                 Images and products on this page were sourced from the following websites:<br>
                 <br>
+                https://www.istockphoto.com/search/2/image-film?phrase=cat+rescue <br>
+
                 <br>
-                <br><br>
                 © 2024 NineLivesHaven. All rights reserved.
 
                 The content, design, and images on this website are the property of Nine Lives Haven and are protected
