@@ -11,6 +11,8 @@ require 'connectdb.php';
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
 </head>
 
 <body>
@@ -110,76 +112,79 @@ require 'connectdb.php';
             }
             ?>
         </nav>
+    </header>
 
-        <section class="cat-section">
+    <section class="cat-section">
+        <?php
+        // retrieve cat ID from the URL query parameter
+        $id = $_GET['id'];
+        // query to fetch cat details based on the cat ID, protect against SQL injection
+        // execute query
+        $query = "SELECT cat_id, cat_name, breed, cat_age, cat_health, cat_description, image_url, special_requirements FROM cats WHERE cat_id = ?";
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        // get the results of query and fetch data as an associative array
+        $result = $stmt->get_result();
+        $cat = $result->fetch_assoc();
+
+        ?>
+        <!-- displaycat image using ID in the filename -->
+        <p class="catImg">
             <?php
-            // Retrieve the cat ID from the URL query parameter
-            $id = $_GET['id'];
-            // Query to fetch cat details based on the cat ID, protect against SQL injection, 
-            // execute query
-            $query = "SELECT cat_id, cat_name, breed, cat_age, cat_health, cat_description, special_requirements FROM cats WHERE cat_id = ?";
-            $stmt = $con->prepare($query);
-            $stmt->bind_param("s", $id);
-            $stmt->execute();
-            // get the results of query and fetch data as an associative array
-            $result = $stmt->get_result();
-            $cat = $result->fetch_assoc();
+            echo "<img src='../nlhImages/" . $cat['image_url'] . ".jpg' alt='" . $cat['cat_id'] . "' style='max-height: 550px; max-width: 500px;'><br>"; ?>
+        </p>
 
-            ?>
-            <!-- Display the cat's image using its ID in the filename -->
-            <p class="catImg">
-                <?php
-                echo "<img src='nlhImages/" . $cat['cat_id'] . ".jpg' alt='" . $cat['cat_id'] . "' style='max-height: 550px; max-width: 500px;'><br>"; ?>
+        <?php
+        if (isset($_SESSION['loggedin'])) {
+            $user_id = $_SESSION['user_id'];
+            $query1 = "SELECT first_name, last_name FROM users WHERE user_id = ?";
+            $stmt1 = $con->prepare($query1);
+            $stmt1->bind_param("s", $user_id);
+            $stmt1->execute();
+            $stmt1->bind_result($first_name, $last_name);
+            $stmt1->fetch();
+            $stmt1->close();
+        }
+        ?>
+
+        <title>
+            <?php echo $cat['cat_name']; ?>
+        </title>
+        <div class="cat-details">
+            <!-- display cats details -->
+            <p class="catName">
+                <?php echo "My name is: " . $cat['cat_name']; ?>
             </p>
-
-            <?php
-            if (isset($_SESSION['loggedin'])) {
-                $user_id = $_SESSION['user_id'];
-                $query1 = "SELECT first_name, last_name FROM users WHERE user_id = ?";
-                $stmt1 = $con->prepare($query1);
-                $stmt1->bind_param("s", $user_id);
-                $stmt1->execute();
-                $stmt1->bind_result($first_name, $last_name);
-                $stmt1->fetch();
-                $stmt1->close();
-            }
-            ?>
-
-            <title>
-                <?php echo $cat['cat_name']; ?>
-            </title>
-            <div class="cat-details">
-                <!-- Display the cat's details -->
-                <p class="catName">
-                    <?php echo "My name is: " . $cat['cat_name']; ?>
-                </p>
-                <p class="catBreed">
-                    <?php echo "What type of cat am I: " . $cat['breed']; ?>
-                </p>
-                <div class="pStatusBasket">
-                    <p class="catAge">
-                        <?php echo "How old am I: " . $cat['cat_age']; ?>
-                    </p>
-                    <!-- stand in form for applying for adoption of the cat -->
-                    <form method="post" action="applyForAdoption.php" class="catApply">
-                        <input type="hidden" name="cat_id" value="<?= $cat['cat_id']; ?>">
-                        <input type="submit" value="Apply for Adoption">
-                    </form>
-                </div>
-                <p class="catHealth">
-                    <?php echo "How healthy am I?: " . $cat['cat_health']; ?>
-                </p>
-                <p class="cat_requirements">
-                    <?php echo "Do I have any special requirements?: " . $cat['special_requirements']; ?>
+            <p class="catBreed">
+                <?php echo "What type of cat am I: " . $cat['breed']; ?>
+            </p>
+            <div class="pStatusBasket">
+                <p class="catAge">
+                    <?php echo "How old am I: " . $cat['cat_age']; ?>
                 </p>
             </div>
+            <p class="catHealth">
+                <?php echo "How healthy am I?: " . $cat['cat_health']; ?>
+            </p>
+            <p class="cat_requirements">
+                <?php echo "Do I have any special requirements?: " . $cat['special_requirements']; ?>
+            </p>
+            <form method="get" action="applyForAdoptionPage.php" class="catApply">
+    <!-- passing cat_id through the URL query string -->
+    <input type="hidden" name="cat_id" value="<?= $cat['cat_id']; ?>">
+    <input type="submit" value="Apply for Adoption">
+</form>
+        </div>
 
-            <section class="aftercare-section">
-                <div class="aftercare-title">Aftercare Information</div>
-                <div class="aftercare-text">
-                    <p>After adopting or sponsoring a cat, it is important to provide proper care and attention. Resources can be found....</p>
-                </div>
-            </section>
+        <section class="aftercare-section">
+            <div class="aftercare-title">Aftercare Information</div>
+            <div class="aftercare-text">
+                <p>After adopting or sponsoring a cat, it is important to provide proper care and attention. Ensure
+                    you have all the necessary supplies and stay informed about veterinary appointments. Feel free
+                    to reach out to us if you need advice or resources.</p>
+            </div>
+        </section>
 </body>
 
 <footer class="footer">
