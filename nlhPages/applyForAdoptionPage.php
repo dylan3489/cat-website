@@ -1,13 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply to Adopt - Nine Lives Haven</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
 <?php
 session_start();
 require 'connectdb.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // form submission and insert data into the adoption_applications table
-    $stmt = $con->prepare("INSERT INTO adoption_applications (user_id, cat_id, age, occupation, hear_about, dwelling, ownership, landlord_permission, household_people, other_pets, allergies, why_interest, preference, owned_cat_before, previous_experience, secure_space, hours_alone, indoor_or_outdoor, secure_outdoor_area, financial_prepared, lifetime_commitment, regular_care, understood_responsibility, accuracy_confirm, home_visit_permission, understood_terms) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        // retrieve the cat ID from the URL query parameter
+        $id = $_GET['cat_id'];
+        // query to fetch cat details based on the cat ID, protect against SQL injection
+        // execute query
+        $query = "SELECT cat_id FROM cats WHERE cat_id = ?";
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        // get the results of query and fetch data as an associative array
+        $result = $stmt->get_result();
+        $cat = $result->fetch_assoc();
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // form submission + insert data into table
+    $stmt = $con->prepare("INSERT INTO adoption_applications (
+        user_id, cat_id, age, occupation, hear_about, dwelling, ownership, landlord_permission, household_people, 
+        other_pets, allergies, why_interest, preference, owned_cat_before, previous_experience, secure_space, hours_alone, 
+        indoor_or_outdoor, secure_outdoor_area, financial_prepared, lifetime_commitment, regular_care, 
+        understood_responsibility, accuracy_confirm, home_visit_permission, understood_terms
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    // bind parameters
     $stmt->bind_param(
-        "iiisssssisissssssssssssssiii",
+        "iiissississsssssssssssssss",
         $_SESSION['user_id'],
         $_POST['cat_id'],
         $_POST['age'],
@@ -38,19 +69,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt->execute();
     $stmt->close();
-    header("Location: applicationSubmitted.php");
+    header("Location: userAccountPage.php");
     exit();
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apply to Adopt</title>
-</head>
+<?php 
+// checks if the user is logged in, if not they are redirected
+if (!isset($_SESSION['user_id'])) {
+    echo '<script>
+        Swal.fire({
+            icon: "warning",
+            title: "Sign In Required",
+            text: "Please sign in or create an account to apply to adopt!",
+            confirmButtonText: "Sign In",
+            confirmButtonColor: "#f4ac6d",
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "userSignInPage.php";
+            }
+        });
+    </script>';
+    exit(); 
+}
+?>
 
 <body>
     <header>
