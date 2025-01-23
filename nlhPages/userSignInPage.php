@@ -1,21 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
 <?php
 session_start();
 
 require 'connectdb.php';
 
+// if the user is logged in, they are redirected
 if(isset($_SESSION['user_id'])){
     header('Location:homePage.php');
     } else { ?>
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
 
 <head>
     <title>Sign In - Nine Lives Haven</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
 </head>
 
 <body>
@@ -23,7 +25,7 @@ if(isset($_SESSION['user_id'])){
         <nav class="banner">
             <a href="homePage.php"><img src="logo" class="logo" alt="Company Logo"></a>
             <!-- navigation bar -written using php to show 1 of three versions depending on 
-     the type of user i.e. Admin, Registered User or Visitor-->
+                    the type of user i.e. Admin, Registered User or Visitor-->
             <?php
             if (isset($_SESSION['loggedin'])) {
                 if (isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == 1) {
@@ -116,19 +118,19 @@ if(isset($_SESSION['user_id'])){
             ?>
         </nav>
 
-    <!-- Page title -->
-    <div class="page-title">User Sign In Page</div>
+    <!-- page title -->
+    <div class="page-title">User Sign In</div>
 
-    <!-- Create account link -->
+    <!-- create account link -->
     <div class="create-account-box">
         <a href="userSignUpPage.php">Create an Account</a>
     </div>
 
-    <!-- Main content -->
+    <!-- main content -->
     <div class="main-container">
-        <!-- Left box: Sign in form -->
+        <!-- left box: Sign in form -->
         <div class="left-box">
-            <h1 id="login-header">Customer Login</h1>
+            <h1 id="login-header">User Sign In</h1>
             <form id="login-form" action="login.php" method="POST">
                 <?php
                 if (isset($_SESSION['error'])) {
@@ -147,14 +149,14 @@ if(isset($_SESSION['user_id'])){
             </form>
         </div>
 
-        <!-- Right box: image -->
+        <!-- right box: image -->
         <div class="right-box">
             <img src="placeholder-image.jpg" alt="Cat Image">
         </div>
     </div>
 </body>
 
-        <!-- Footer -->
+        <!-- footer -->
 <footer class="footer">
     <div class="footer-section">
         <div>
