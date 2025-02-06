@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
+
+<head>
+    <title>Sign In - Nine Lives Haven</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+</head>
 
 <?php
 session_start();
-
 require 'connectdb.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,25 +26,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            $verifyResult = password_verify($password, hash: $user['password_hash']);
+            $verifyResult = password_verify($password, $user['password_hash']);
 
-            if ($verifyResult) { 
+            if ($verifyResult) {
                 $_SESSION['user_id'] = $user['user_id'];
-                $_SESSION['admin_status'] = 0;
-                $_SESSION['loggedin'] = true; 
-            
-                echo '<script>alert("Hi ' . $user['email'] . ', you are now logged in!");</script>';
-                echo '<script>window.location.href = "userAccountPage.php";</script>';
+                $_SESSION['admin_status'] = $user['admin_status'];
+                $_SESSION['loggedin'] = true;
+                
+                echo '<script>
+                window.onload = function() {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Welcome Back!",
+                        text: "Hi ' . $user['email'] . ', you are now logged in!",
+                        confirmButtonColor: "#f4ac6d",
+                        allowOutsideClick: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "userAccountPage.php";
+                        }
+                    });
+                };
+                </script>';
                 exit();
             } else {
-                echo '<script>alert("Invalid email or password.");</script>';
-                echo '<script>window.location.href = "userSignInPage.php";</script>';
-
+                echo '<script>
+                window.onload = function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Login Failed",
+                        text: "Invalid email or password.",
+                        confirmButtonColor: "#f4ac6d"
+                    }).then(() => {
+                        window.location.href = "userSignInPage.php";
+                    });
+                };
+                </script>';
                 exit();
             }
         } else {
-            echo '<script>alert("Invalid email or password.");</script>';
-            echo '<script>window.location.href = "userSignInPage.php";</script>';
+            echo '<script>
+            window.onload = function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Login Failed",
+                    text: "Invalid email or password.",
+                    confirmButtonColor: "#f4ac6d"
+                }).then(() => {
+                    window.location.href = "userSignInPage.php";
+                });
+            };
+            </script>';
             exit();
         }
     }
