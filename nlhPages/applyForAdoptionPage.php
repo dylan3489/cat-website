@@ -7,28 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply to Adopt - Nine Lives Haven</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../nlhCSS/applyForAdoptionCSS.css">
+
 
 </head>
 
 <?php
 session_start();
 require 'connectdb.php';
+include 'navbar.php'; // banner and nav bar
 
-        // retrieve the cat ID from the URL query parameter
-        $id = $_GET['cat_id'];
-        // query to fetch cat details based on the cat ID, protect against SQL injection
-        // execute query
-        $query = "SELECT cat_id FROM cats WHERE cat_id = ?";
-        $stmt = $con->prepare($query);
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-        // get the results of query and fetch data as an associative array
-        $result = $stmt->get_result();
-        $cat = $result->fetch_assoc();
+// retrieve the cat ID from the URL query parameter
+$id = $_POST['cat_id'];
+// query to fetch cat details based on the cat ID, protect against SQL injection
+// execute query
+$query = "SELECT cat_id, cat_name FROM cats WHERE cat_id = ?";
+$stmt = $con->prepare($query);
+$stmt->bind_param("s", $id);
+$stmt->execute();
+// get the results of query and fetch data as an associative array
+$result = $stmt->get_result();
+$cat = $result->fetch_assoc();
+
+$cat_name = $cat['cat_name'];  // Store the cat's name
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // form submission + insert data into table
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitted']) && $_POST['submitted'] == 1 && isset($_POST['cat_id'])) {
     $stmt = $con->prepare("INSERT INTO adoption_applications (
         user_id, cat_id, age, occupation, hear_about, dwelling, ownership, landlord_permission, household_people, 
         other_pets, allergies, why_interest, preference, owned_cat_before, previous_experience, secure_space, hours_alone, 
@@ -69,12 +73,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt->execute();
     $stmt->close();
-    header("Location: userAccountPage.php");
+
+    echo '<script>
+        Swal.fire({
+            icon: "success",
+            title: "Application Submitted!",
+            text: "Your adoption application has been submitted successfully.",
+            confirmButtonColor: "#f4ac6d"
+        }).then(function() {
+            window.location.href = "userAccountPage.php";
+        });
+    </script>';
+
     exit();
 }
 ?>
 
-<?php 
+<?php
 // checks if the user is logged in, if not they are redirected
 if (!isset($_SESSION['user_id'])) {
     echo '<script>
@@ -91,109 +106,11 @@ if (!isset($_SESSION['user_id'])) {
             }
         });
     </script>';
-    exit(); 
+    exit();
 }
 ?>
 
 <body>
-    <header>
-        <nav class="banner">
-            <a href="homePage.php"><img src="logo" class="logo" alt="Company Logo"></a>
-            <!-- this is the navigation bar -written using php to show 1 of three versions depending on 
-     the type of user i.e. Admin, Registered User or Visitor-->
-            <?php
-            if (isset($_SESSION['loggedin'])) {
-                if (isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == 1) {
-                    ?>
-                    <nav class="header-nav">
-                        <ul class="navigation-bar">
-                            <li><a href="homePage.php">Home</a></li>
-                            <li><a href="aboutUsPage.php">About Us</a></li>
-                            <li><a href="ourCatsPage.php">Our Cats</a></li>
-                            <nav class=CatCare>
-                                <a href="catCarePage.php"><button class="dropbtn">Cat Care</button></a>
-                                <nav class="products-content">
-                                    <a href="faqPage.php">FAQs</a>
-                                    <a href="catCarePage.php">Advice on Cat Care</a>
-                                    <a href="vetServicesPage.php">Vetinary Services</a>
-                                </nav>
-                                <nav class=AdminDropDown>
-                                    <a href="adminAccountPage.php"><button class="dropbtn">Your Admin Account</button></a>
-                                    <nav class="products-content">
-                                        <a href="adminEditAccountPage.php">Edit Your Account</a>
-                                        <a href="adminViewApplicationsPage.php">View Adoption Applications</a>
-                                        <a href="adminAppointmentsDatabasePage.php">View Appointments</a>
-                                        <a href="adminDonationsDatabasePage.php">Donations Database</a>
-                                        <a href="adminSponsorshipDatabasePage.php">Sponsorships Database</a>
-                                        <a href="adminStoriesDatabasePage.php">Success Stories Database</a>
-                                        <a href="adminUserDatabasePage.php">User Database</a>
-                                    </nav>
-                                </nav>
-                                <li><a href="contactUsPage.php">Contact Us </a></li>
-                                <button><a href="userMakeDonationPage.php">Donate</a></button>
-                                <button><a href="logout.php">Logout</a></button>
-                        </ul>
-                    </nav>
-                </nav>
-                <?php
-                } else if (isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == 0) {
-                    ?>
-                    <nav class="header-nav">
-                        <ul class="navigation-bar">
-                            <li><a href="homePage.php">Home</a></li>
-                            <li><a href="aboutUsPage.php">About Us</a></li>
-                            <li><a href="ourCatsPage.php">Our Cats</a></li>
-                            <nav class=CatCare>
-                                <a href="catCarePage.php"><button class="dropbtn">Cat Care</button></a>
-                                <nav class="products-content">
-                                    <a href="faqPage.php">FAQs</a>
-                                    <a href="catCarePage.php">Advice on Cat Care</a>
-                                    <a href="vetServicesPage.php">Vetinary Services</a>
-                                </nav>
-                                <nav class=AdminDropDown>
-                                    <a href="userAccountPage.php"><button class="dropbtn">Your Account</button></a>
-                                    <nav class="products-content">
-                                        <a href="userEditAccountPage.php">Edit Your Account</a>
-                                        <a href="userViewApplicationsPage.php">View Adoption Applications</a>
-                                        <a href="userViewAppointmentsPage.php">View Appointments</a>
-                                        <a href="userDonationHistoryPage.php">Donations Database</a>
-                                        <a href="userViewSponsorshipsPage.php">Sponsorships Database</a>
-                                    </nav>
-                                </nav>
-                                <li><a href="contactUsPage.php">Contact Us </a></li>
-                                <button><a href="userMakeDonationPage.php">Donate</a></button>
-                                <button><a href="logout.php">Logout</a></button>
-                        </ul>
-                    </nav>
-                    </nav>
-                <?php
-                }
-            } else {
-                ?>
-            <nav class="header-nav">
-                <ul class="navigation-bar">
-                    <li><a href="homePage.php">Home</a></li>
-                    <li><a href="aboutUsPage.php">About Us</a></li>
-                    <li><a href="ourCatsPage.php">Our Cats</a></li>
-                    <nav class=CatCare>
-                        <a href="catCarePage.php"><button class="dropbtn">Cat Care</button></a>
-                        <nav class="products-content">
-                            <a href="faqPage.php">FAQs</a>
-                            <a href="catCarePage.php">Advice on Cat Care</a>
-                            <a href="vetServicesPage.php">Vetinary Services</a>
-                        </nav>
-                        <li><a href="contactUsPage.php">Contact Us </a></li>
-                        <button><a href="userMakeDonationPage.php">Donate</a></button>
-                        <button><a href="userSignInPage.php">Sign In</a></button>
-                </ul>
-            </nav>
-            </nav>
-            <?php
-            }
-            ?>
-        </nav>
-    </header>
-
     <section class="page-title">
         <h1>Apply to Adopt</h1>
     </section>
@@ -201,7 +118,10 @@ if (!isset($_SESSION['user_id'])) {
     <section class="application-section">
         <div class="application-form">
             <form method="POST" action="">
-                <input type="hidden" name="cat_id" value="<?php echo $_GET['cat_id']; ?>">
+                <input type="hidden" name="submitted" value="1">
+                <input type="hidden" name="cat_id" value="<?php echo $_POST['cat_id']; ?>">
+
+                <p>Cat you want to adopt: <strong><?php echo $cat_name; ?></strong></p>
 
                 <label for="age">Your Age:</label>
                 <input type="number" name="age" id="age" required>
@@ -322,34 +242,6 @@ if (!isset($_SESSION['user_id'])) {
 </body>
 
 
-<footer class="footer">
-    <div class="footer-section">
-        <div>
-            <img src="logo.png" class="logo" alt="Company Logo"></a>
-        </div>
-        <div>
-
-            <p>
-                Images and products on this page were sourced from the following websites:<br>
-                <br>
-                <br>
-                <br><br>
-                © 2024 NineLivesHaven. All rights reserved.
-
-                The content, design, and images on this website are the property of Nine Lives Haven and are protected
-                by
-                international copyright laws. Unauthorized use or reproduction of any materials without the express
-                written
-                consent of Nine Lives Haven is strictly prohibited. Nine Lives Haven and the Nine Lives Haven logo are
-                trademarks of
-                Nine Lives Haven.
-
-                For inquiries regarding the use or reproduction of any content on this website, please contact us at
-                nineliveshaven@rescue.com
-            </p>
-
-        </div>
-    </div>
-</footer>
+<?php include 'footer.php'; // footer ?> 
 
 </html>
