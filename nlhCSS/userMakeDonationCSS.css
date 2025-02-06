@@ -1,0 +1,84 @@
+.donation-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    box-sizing: border-box;
+}
+
+.donation-form {
+    background-color: white;
+    padding: 30px;
+    padding-right: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    width: 100%;
+    margin: 0 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.donation-form h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+label {
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="month"],
+textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.donation-form button {
+    padding: 12px;
+    background-color: #f4ac6d;
+    border: none;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.donation-form button:hover {
+    background-color: #e5934f;
+}
+
+/* Style for the page title and header */
+.page-header {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.page-header img {
+    width: 100%;
+    height: 30%;
+    max-height: 300px;
+    object-fit: cover;
+    padding-top: 0.7%;
+}
+
+.page-title {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+}

@@ -1,0 +1,60 @@
+.application-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: url('../nlhImages/catplay1.jpg') no-repeat center center;
+    background-size: cover;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    box-sizing: border-box;
+}
+
+.application-form {
+    background-color: #fff0e0 ;
+    padding: 30px;
+    padding-right:40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    width: 100%;
+    margin: 0 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.application-form button:hover {
+    background-color: #e5934f;
+    color: white;
+}
+
+p {
+    margin: 10px 0;
+    font-size: 1.1em;
+}

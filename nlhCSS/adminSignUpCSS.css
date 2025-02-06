@@ -1,0 +1,65 @@
+        .registration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            margin: 10%;
+        }
+
+        .register {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 70%; 
+            max-width: 800px; 
+            min-width: 400px; 
+            text-align: center;
+        }
+
+        .registration-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .registration-table th {
+            font-size: 1.5rem;
+            padding: 10px;
+            background-color: #f4f4f4;
+        }
+
+        .registration-table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .registration-table input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .registration-table input[type="submit"] {
+            background-color: #c35721;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .registration-table input[type="submit"]:hover {
+            background-color:rgba(195, 87, 33, 0.86);
+        }
+
+        .admin-link {
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 0.9rem;
+        }
+
+        .admin-link:hover {
+            text-decoration: underline;
+        }

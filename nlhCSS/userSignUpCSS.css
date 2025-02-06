@@ -1,0 +1,81 @@
+.page-header {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.page-header img {
+    width: 100%;
+    height: 30%;
+    max-height: 300px;
+    object-fit: cover;
+    padding-top:0.7%;
+}
+
+.page-title {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0px;
+}
+
+.register {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 900px; 
+    min-width: 400px; 
+    text-align: center;
+}
+
+.registration-table {
+    padding-left: 20%;
+    width: 80%;
+}
+
+.registration-table th {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.registration-table input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.registration-table input[type="submit"] {
+    background-color: #c35721;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.registration-table input[type="submit"]:hover {
+    background-color:rgba(195, 87, 33, 0.86);
+}
+
+.admin-link {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 0.9rem;
+}
+
+.admin-link:hover {
+    text-decoration: underline;
+}
