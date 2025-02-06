@@ -1,9 +1,3 @@
-<?php
-session_start();
-
-require 'connectdb.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
@@ -11,210 +5,74 @@ require 'connectdb.php';
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../nlhCSS/catProfileCSS.css">
 </head>
 
+<?php
+session_start();
+
+require 'connectdb.php';
+include 'navbar.php'; // banner and nav bar
+?>
+
 <body>
-    <header>
-        <nav class="banner">
-            <a href="homePage.php"><img src="logo" class="logo" alt="Company Logo"></a>
-            <!-- this is the navigation bar -written using php to show 1 of three versions depending on 
-     the type of user i.e. Admin, Registered User or Visitor-->
+<section class="cat-section">
+        <!-- left side: cat image -->
+        <div class="cat-image">
             <?php
-            if (isset($_SESSION['loggedin'])) {
-                if (isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == 1) {
-                    ?>
-                    <nav class="header-nav">
-                        <ul class="navigation-bar">
-                            <li><a href="homePage.php">Home</a></li>
-                            <li><a href="aboutUsPage.php">About Us</a></li>
-                            <li><a href="ourCatsPage.php">Our Cats</a></li>
-                            <nav class=CatCare>
-                                <a href="catCarePage.php"><button class="dropbtn">Cat Care</button></a>
-                                <nav class="products-content">
-                                    <a href="faqPage.php">FAQs</a>
-                                    <a href="catCarePage.php">Advice on Cat Care</a>
-                                    <a href="vetServicesPage.php">Vetinary Services</a>
-                                </nav>
-                                <nav class=AdminDropDown>
-                                    <a href="adminAccountPage.php"><button class="dropbtn">Your Admin Account</button></a>
-                                    <nav class="products-content">
-                                        <a href="adminEditAccountPage.php">Edit Your Account</a>
-                                        <a href="adminViewApplicationsPage.php">View Adoption Applications</a>
-                                        <a href="adminAppointmentsDatabasePage.php">View Appointments</a>
-                                        <a href="adminDonationsDatabasePage.php">Donations Database</a>
-                                        <a href="adminSponsorshipDatabasePage.php">Sponsorships Database</a>
-                                        <a href="adminStoriesDatabasePage.php">Success Stories Database</a>
-                                        <a href="adminUserDatabasePage.php">User Database</a>
-                                    </nav>
-                                </nav>
-                                <li><a href="contactUsPage.php">Contact Us </a></li>
-                                <button><a href="userMakeDonationPage.php">Donate</a></button>
-                                <button><a href="logout.php">Logout</a></button>
-                        </ul>
-                    </nav>
-                </nav>
-                <?php
-                } else if (isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == 0) {
-                    ?>
-                    <nav class="header-nav">
-                        <ul class="navigation-bar">
-                            <li><a href="homePage.php">Home</a></li>
-                            <li><a href="aboutUsPage.php">About Us</a></li>
-                            <li><a href="ourCatsPage.php">Our Cats</a></li>
-                            <nav class=CatCare>
-                                <a href="catCarePage.php"><button class="dropbtn">Cat Care</button></a>
-                                <nav class="products-content">
-                                    <a href="faqPage.php">FAQs</a>
-                                    <a href="catCarePage.php">Advice on Cat Care</a>
-                                    <a href="vetServicesPage.php">Vetinary Services</a>
-                                </nav>
-                                <nav class=AdminDropDown>
-                                    <a href="userAccountPage.php"><button class="dropbtn">Your Account</button></a>
-                                    <nav class="products-content">
-                                        <a href="userEditAccountPage.php">Edit Your Account</a>
-                                        <a href="userViewApplicationsPage.php">View Adoption Applications</a>
-                                        <a href="userViewAppointmentsPage.php">View Appointments</a>
-                                        <a href="userDonationHistoryPage.php">Donations Database</a>
-                                        <a href="userViewSponsorshipsPage.php">Sponsorships Database</a>
-                                    </nav>
-                                </nav>
-                                <li><a href="contactUsPage.php">Contact Us </a></li>
-                                <button><a href="userMakeDonationPage.php">Donate</a></button>
-                                <button><a href="logout.php">Logout</a></button>
-                        </ul>
-                    </nav>
-                    </nav>
-                <?php
-                }
-            } else {
-                ?>
-            <nav class="header-nav">
-                <ul class="navigation-bar">
-                    <li><a href="homePage.php">Home</a></li>
-                    <li><a href="aboutUsPage.php">About Us</a></li>
-                    <li><a href="ourCatsPage.php">Our Cats</a></li>
-                    <nav class=CatCare>
-                        <a href="catCarePage.php"><button class="dropbtn">Cat Care</button></a>
-                        <nav class="products-content">
-                            <a href="faqPage.php">FAQs</a>
-                            <a href="catCarePage.php">Advice on Cat Care</a>
-                            <a href="vetServicesPage.php">Vetinary Services</a>
-                        </nav>
-                        <li><a href="contactUsPage.php">Contact Us </a></li>
-                        <button><a href="userMakeDonationPage.php">Donate</a></button>
-                        <button><a href="userSignInPage.php">Sign In</a></button>
-                </ul>
-            </nav>
-            </nav>
-            <?php
-            }
+            $id = $_GET['id'];
+            $query = "SELECT cat_id, cat_name, breed, cat_age, cat_health, cat_description, image_url, special_requirements, adoption_status FROM cats WHERE cat_id = ?";
+            $stmt = $con->prepare($query);
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $cat = $result->fetch_assoc();
+
+            echo "<img src='../nlhImages/" . $cat['image_url'] . ".jpg' alt='" . $cat['cat_name'] . "'>";
             ?>
-        </nav>
-    </header>
-
-    <section class="cat-section">
-        <?php
-        // retrieve cat ID from the URL query parameter
-        $id = $_GET['id'];
-        // query to fetch cat details based on the cat ID, protect against SQL injection
-        // execute query
-        $query = "SELECT cat_id, cat_name, breed, cat_age, cat_health, cat_description, image_url, special_requirements FROM cats WHERE cat_id = ?";
-        $stmt = $con->prepare($query);
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-        // get the results of query and fetch data as an associative array
-        $result = $stmt->get_result();
-        $cat = $result->fetch_assoc();
-
-        ?>
-        <!-- displaycat image using ID in the filename -->
-        <p class="catImg">
-            <?php
-            echo "<img src='../nlhImages/" . $cat['image_url'] . ".jpg' alt='" . $cat['cat_id'] . "' style='max-height: 550px; max-width: 500px;'><br>"; ?>
-        </p>
-
-        <?php
-        if (isset($_SESSION['loggedin'])) {
-            $user_id = $_SESSION['user_id'];
-            $query1 = "SELECT first_name, last_name FROM users WHERE user_id = ?";
-            $stmt1 = $con->prepare($query1);
-            $stmt1->bind_param("s", $user_id);
-            $stmt1->execute();
-            $stmt1->bind_result($first_name, $last_name);
-            $stmt1->fetch();
-            $stmt1->close();
-        }
-        ?>
-
-        <title>
-            <?php echo $cat['cat_name']; ?>
-        </title>
-        <div class="cat-details">
-            <!-- display cats details -->
-            <p class="catName">
-                <?php echo "My name is: " . $cat['cat_name']; ?>
-            </p>
-            <p class="catBreed">
-                <?php echo "What type of cat am I: " . $cat['breed']; ?>
-            </p>
-            <div class="pStatusBasket">
-                <p class="catAge">
-                    <?php echo "How old am I: " . $cat['cat_age']; ?>
-                </p>
-            </div>
-            <p class="catHealth">
-                <?php echo "How healthy am I?: " . $cat['cat_health']; ?>
-            </p>
-            <p class="cat_requirements">
-                <?php echo "Do I have any special requirements?: " . $cat['special_requirements']; ?>
-            </p>
-            <form method="get" action="applyForAdoptionPage.php" class="catApply">
-    <!-- passing cat_id through the URL query string -->
-    <input type="hidden" name="cat_id" value="<?= $cat['cat_id']; ?>">
-    <input type="submit" value="Apply for Adoption">
-</form>
         </div>
 
-        <section class="aftercare-section">
-            <div class="aftercare-title">Aftercare Information</div>
-            <div class="aftercare-text">
-                <p>After adopting or sponsoring a cat, it is important to provide proper care and attention. Ensure
-                    you have all the necessary supplies and stay informed about veterinary appointments. Feel free
-                    to reach out to us if you need advice or resources.</p>
-            </div>
-        </section>
+        <!-- right side: cat details -->
+        <div class="cat-details">
+            <p><strong>Name:</strong> <?= $cat['cat_name']; ?></p>
+            <p><strong>Breed:</strong> <?= $cat['breed']; ?></p>
+            <p><strong>Age:</strong> <?= $cat['cat_age']; ?></p>
+            <p><strong>Health:</strong> <?= $cat['cat_health']; ?></p>
+            <p><strong>Special Requirements:</strong> <?= $cat['special_requirements']; ?></p>
+            <p><strong>Description:</strong> <?= $cat['cat_description']; ?></p>
+            <p><strong>Status:</strong> 
+                <span style="color: <?= ($cat['adoption_status'] == 'Adopted') ? 'red' : 'white'; ?>;">
+                    <?= ($cat['adoption_status'] == 'Adopted') ? 'Adopted' : 'Available for Adoption'; ?>
+                </span>
+            </p>
+
+            <!-- adoption & sponsorship Buttons -->
+            <?php if ($cat['adoption_status'] !== 'Adopted') : ?>
+                <div class="cat-actions">
+                    <form method="post" action="applyForAdoptionPage.php" class="apply-button">
+                        <input type="hidden" name="cat_id" value="<?= $cat['cat_id']; ?>">
+                        <input type="submit" value="Apply for Adoption">
+                    </form>
+                    <form method="post" action="userSponsorCatPage.php" class="apply-button">
+                        <input type="hidden" name="cat_id" value="<?= $cat['cat_id']; ?>">
+                        <input type="submit" value="Apply to Sponsor">
+                    </form>
+                </div>
+            <?php endif; ?>
+        </div>
+    </section>
+
+    <section class="aftercare-section">
+        <div class="aftercare-title">Aftercare Information</div>
+        <div class="aftercare-text">
+            <p>After adopting or sponsoring a cat, it is important to provide proper care and attention. Ensure you have
+                all the necessary supplies and stay informed about veterinary appointments. Feel free to reach out to us
+                if you need advice or resources.</p>
+        </div>
+    </section>
 </body>
 
-<footer class="footer">
-    <div class="footer-section">
-        <div>
-            <img src="logo.png" class="logo" alt="Company Logo"></a>
-        </div>
-        <div>
-
-            <p>
-                Images and products on this page were sourced from the following websites:<br>
-                <br>
-                <br>
-                <br><br>
-                © 2024 NineLivesHaven. All rights reserved.
-
-                The content, design, and images on this website are the property of Nine Lives Haven and are protected
-                by
-                international copyright laws. Unauthorized use or reproduction of any materials without the express
-                written
-                consent of Nine Lives Haven is strictly prohibited. Nine Lives Haven and the Nine Lives Haven logo are
-                trademarks of
-                Nine Lives Haven.
-
-                For inquiries regarding the use or reproduction of any content on this website, please contact us at
-                nineliveshaven@rescue.com
-            </p>
-
-        </div>
-    </div>
-</footer>
-
 </html>
+
+<?php include 'footer.php'; // footer ?>
