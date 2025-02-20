@@ -1,0 +1,87 @@
+.stories-intro {
+    padding: 30px 20px 80px;
+    margin-top: 0.7%;
+    background-color: #c35721;
+    color: white;
+    text-align: center;
+}
+
+.stories-intro h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.intro-box {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.2em;
+    line-height: 1.5;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.story-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 5%;
+    border-radius: 10px;
+    margin: 30px auto;
+    max-width: 1000px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bg-1 {
+    background-color: #735134;
+}
+
+.bg-2 {
+    background-color:rgb(255, 243, 243);
+}
+
+.bg-3 {
+    background-color: #f4ac6d;
+}
+
+.bg-1 .story-text,
+.bg-1 .story-text h3 {
+    color: white;
+}
+
+.bg-3 .story-text,
+.bg-3 .story-text h3 {
+    color: white;
+}
+.story-text {
+    flex: 1;
+    max-width: 500px;
+    text-align: left;
+}
+
+.story-text h3 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.story-text p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.story-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.no-stories {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #c35721;
+    margin: 40px;
+}
