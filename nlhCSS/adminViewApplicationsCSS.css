@@ -1,0 +1,73 @@
+.page-title {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.applications-database {
+    width: 90%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-form input,
+.search-form select {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.search-form button {
+    padding: 5px 10px;
+    background: #735134;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-form button:hover {
+    background: rgb(87, 55, 27);
+}
+
+table {
+    width: 100%;
+    border: none;
+                background: white;
+    
+}
+
+thead {
+    background: #c35721;
+    color: white;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+    border: none;        }
+
+tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+table button {
+    padding: 5px 10px;
+    background: #735134;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+table button:hover {
+    background: rgb(87, 55, 27);
+}
