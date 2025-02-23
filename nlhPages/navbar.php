@@ -23,14 +23,14 @@
         margin: -10px;
     }
 
-    /* Logo Styling */
+    /* logo Styling */
     .logo {
         width: 100%;
         max-height: 250px;
         object-fit: contain;
     }
 
-    /* Navbar Styling */
+    /* navbar Styling */
     .header-nav {
         background-color: #f4ac6d;
         width: 101%;
@@ -41,7 +41,7 @@
         margin: -10px;
     }
 
-    /* Navigation Bar */
+    /* navigation Bar */
     .navigation-bar {
         width: 90%;
         display: flex;
@@ -51,9 +51,7 @@
         margin: 0;
         list-style: none;
         font-family: 'Arial', sans-serif;
-        /* Set same font-family */
     }
-
 
     .navigation-bar li {
         display: inline;
@@ -74,7 +72,7 @@
         border-radius: 5px;
     }
 
-    /* Dropdown Styling */
+    /* dropdown Styling */
     .CatCare,
     .AdminDropDown {
         position: relative;
@@ -98,6 +96,8 @@
         min-width: 180px;
         box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 1;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
 
     .products-content a {
@@ -109,6 +109,7 @@
     .products-content a:hover {
         background-color: #f4ac6d;
         color: white;
+        border-radius: 0px;
     }
 
     .CatCare:hover .products-content,
@@ -116,7 +117,6 @@
         display: block;
     }
 
-    /* Button Styling */
     button {
         background-color: white;
         border: none;
@@ -131,6 +131,10 @@
     button a {
         text-decoration: none;
         color: #f4ac6d !important;
+    }
+    button a:hover {
+        text-decoration: none;
+        color:rgb(192, 132, 79) !important;
     }
 </style>
 
@@ -157,12 +161,14 @@
                             <a href="faqPage.php">FAQs</a>
                             <a href="catCarePage.php">Advice on Cat Care</a>
                             <a href="vetServicesPage.php">Vetinary Services</a>
+                            <a href="successStoriesPage.php">Success Stories</a>
+
                         </nav>
                     </nav>
                     <nav class="AdminDropDown">
                         <a href="adminAccountPage.php"><button class="dropbtn">Your Admin Account</button></a>
                         <nav class="products-content">
-                            <a href="adminEditAccountPage.php">Edit Your Account</a>
+                            <a href="adminEditDetails.php">Edit Your Account</a>
                             <a href="adminViewApplicationsPage.php">Adoption Applications</a>
                             <a href="adminAppointmentsDatabasePage.php">Appointments</a>
                             <a href="adminDonationsDatabasePage.php">Donations Database</a>
@@ -191,6 +197,7 @@
                             <a href="faqPage.php">FAQs</a>
                             <a href="catCarePage.php">Advice on Cat Care</a>
                             <a href="vetServicesPage.php">Vetinary Services</a>
+                            <a href="successStoriesPage.php">Success Stories</a>
                         </nav>
                     </nav>
                     <nav class="AdminDropDown">
@@ -223,6 +230,7 @@
                         <a href="faqPage.php">FAQs</a>
                         <a href="catCarePage.php">Advice on Cat Care</a>
                         <a href="vetServicesPage.php">Vetinary Services</a>
+                        <a href="successStoriesPage.php">Success Stories</a>
                     </nav>
                 </nav>
                 <li><a href="contactUsPage.php">Contact Us </a></li>
