@@ -96,7 +96,6 @@ $total_pages = ceil($total_cats / $cats_per_page);
             <?php endforeach; ?>
         </div>
 
-        <!-- Pagination -->
         <div class="pagination">
             <?php if ($page > 1): ?>
                 <a
