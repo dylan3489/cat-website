@@ -29,7 +29,7 @@ $sort = isset($_GET['sort']) && in_array($_GET['sort'], ['application_date', 'fi
 $order = isset($_GET['order']) && in_array($_GET['order'], ['asc', 'desc'])
     ? mysqli_real_escape_string($con, $_GET['order']) : 'desc';
 
-// fetch applications with search/filter applied, as well as linking other tables
+// fetch applications with search/filter applied + linking other tables
 $query = "
     SELECT 
         aa.application_id,
@@ -74,7 +74,6 @@ $applications = mysqli_fetch_all($result, MYSQLI_ASSOC);
     </section>
 
     <section class="applications-database">
-        <!-- search and sort form inside applications-database container -->
         <form method="get" action="" class="search-form">
             <input type="text" name="search" value="<?= htmlspecialchars($search) ?>"
                 placeholder="Search applications...">
@@ -93,7 +92,6 @@ $applications = mysqli_fetch_all($result, MYSQLI_ASSOC);
             <button type="submit">Search</button>
         </form>
 
-        <!-- applications table -->
         <table border="1">
             <thead>
                 <tr>
@@ -134,7 +132,8 @@ $applications = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         </td>
                         <td>
                             <form action="editApplicationDetails.php" method="get">
-                                <input type="hidden" name="application_id" value="<?= htmlspecialchars($application['application_id']) ?>">
+                                <input type="hidden" name="application_id"
+                                    value="<?= htmlspecialchars($application['application_id']) ?>">
                                 <button type="submit">Edit</button>
                             </form>
                         </td>
