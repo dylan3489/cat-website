@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
 require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
-$stories = []; // empty array to avoid errors if no data retrieved
+$stories = [];
 
 // search and sorting
 $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
@@ -43,7 +43,7 @@ $query = "SELECT s.story_id, s.user_id, s.cat_id, s.story_text, s.before_image_u
 $result = mysqli_query($con, $query);
 
 if ($result) {
-    $stories = mysqli_fetch_all($result, MYSQLI_ASSOC); // fetch all rows as an associative array
+    $stories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 } else {
     echo "Error fetching data: " . mysqli_error($con);
 }
@@ -55,26 +55,24 @@ if ($result) {
     </section>
 
     <section class="stories-database">
-        <!-- search and sort form -->
-<!-- search and sort form -->
-<form action="adminStoriesDatabasePage.php" method="get" style="display: flex; align-items: center; gap: 10px;">
-    <input type="text" name="search" class="search-bar"
-        value="<?= isset($search) && $search !== '' ? htmlspecialchars($search) : '' ?>"
-        placeholder="Search success stories...">
-    <select name="sort">
-        <option value="story_date">Date</option>
-        <option value="user_id">User ID</option>
-        <option value="cat_id">Cat ID</option>
-        <option value="story_id">Story ID</option>
-    </select>
-    <select name="order">
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
-    </select>
-    <input type="submit" value="Search">
+        <form action="adminStoriesDatabasePage.php" method="get" style="display: flex; align-items: center; gap: 10px;">
+            <input type="text" name="search" class="search-bar"
+                value="<?= isset($search) && $search !== '' ? htmlspecialchars($search) : '' ?>"
+                placeholder="Search success stories...">
+            <select name="sort">
+                <option value="story_date">Date</option>
+                <option value="user_id">User ID</option>
+                <option value="cat_id">Cat ID</option>
+                <option value="story_id">Story ID</option>
+            </select>
+            <select name="order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <input type="submit" value="Search">
 
-    <a href="addStory.php" class="add-story-btn">+ Add New Story</a>
-</form>
+            <a href="addStory.php" class="add-story-btn">+ Add New Story</a>
+        </form>
 
 
         <table>
