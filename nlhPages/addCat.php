@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +28,9 @@
             margin-top: 10px;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
@@ -58,14 +61,13 @@ session_start();
 require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
-// check if the admin is not logged in
+// check if the admin is logged in
 if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
     header('Location: adminSignInPage.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form values
     $cat_name = mysqli_real_escape_string($con, $_POST['cat_name']);
     $breed = mysqli_real_escape_string($con, $_POST['breed']);
     $cat_age = mysqli_real_escape_string($con, $_POST['cat_age']);
@@ -75,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $adoption_status = mysqli_real_escape_string($con, $_POST['adoption_status']);
     $special_requirements = mysqli_real_escape_string($con, $_POST['special_requirements']);
 
-    // Insert new cat data into the database
     $query = "INSERT INTO cats (cat_name, breed, cat_age, cat_health, cat_description, image_url, adoption_status, special_requirements)
               VALUES ('$cat_name', '$breed', '$cat_age', '$cat_health', '$cat_description', '$image_url', '$adoption_status', '$special_requirements')";
 
