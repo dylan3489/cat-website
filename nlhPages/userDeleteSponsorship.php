@@ -25,13 +25,11 @@ if (!$sponsorship_id) {
     die("Invalid request.");
 }
 
-// Delete sponsorship
 $delete_query = "DELETE FROM sponsorships WHERE sponsorship_id = ? AND user_id = ?";
 $stmt = $con->prepare($delete_query);
 $stmt->bind_param("ii", $sponsorship_id, $user_id);
 
 if ($stmt->execute()) {
-    // Output SweetAlert2 pop-up and redirect
     echo "<script>
             Swal.fire({
                 title: 'Deleted!',
