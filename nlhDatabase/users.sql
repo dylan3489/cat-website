@@ -2,6 +2,7 @@ CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
+    date_of_birth DATE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),

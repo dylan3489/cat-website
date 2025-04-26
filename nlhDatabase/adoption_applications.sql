@@ -3,7 +3,7 @@ CREATE TABLE adoption_applications (
     user_id INT NOT NULL,
     cat_id INT NOT NULL,
     application_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    application_status ENUM('pending') DEFAULT 'pending',
+    application_status ENUM('pending', 'processing', 'accepted', 'unsuccessful') DEFAULT 'pending',
     age INT,
     occupation VARCHAR(255),
     hear_about VARCHAR(255),
@@ -31,9 +31,3 @@ CREATE TABLE adoption_applications (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (cat_id) REFERENCES cats(cat_id)
 ); 
-
-
-
-INSERT INTO orderprocessing(OrderTotal,CustomerID, OrderStatus, Order_Description, Email, FirstName, LastName, Address, City, Country, PostCode, PhoneNumber)
-VALUES ('30','220023', 'Processing', '2x Cerave Foam Cleanser', 'emilyM@yahoo.com', 'Emily', 'Mitchells', '98 Spring Road', 'Birmingham', 'England', 'B10 0AA', '07198842650');
-
