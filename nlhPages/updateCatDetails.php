@@ -3,9 +3,9 @@
 
 <?php
 session_start();
-require 'connectdb.php';
+require 'connectdb.php'; 
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['admin_status'] != 1) {
+if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
     header('Location: adminSignInPage.php');
     exit();
 }
