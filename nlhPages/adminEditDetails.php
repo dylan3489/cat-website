@@ -6,10 +6,8 @@
     <title>Edit Admin Details - Nine Lives Haven</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-
-
         .edit-account-container {
             max-width: 600px;
             margin: 50px auto;
@@ -51,10 +49,10 @@
         }
 
         .edit-account-container button:hover {
-            background-color:rgb(211, 133, 64);
+            background-color: rgb(211, 133, 64);
         }
 
-        
+
         .swal2-styled.swal2-confirm {
             background-color: #f4ac6d !important;
             color: white !important;
@@ -65,14 +63,14 @@
             background-color: #d68b4b !important;
         }
     </style>
-    </head>
+</head>
 
 <?php
 session_start();
 require 'connectdb.php';
-include 'navbar.php';
+include 'navbar.php'; //banner and nav bar
 
-// Check if admin is logged in
+// check if admin is logged in
 if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
     header('Location: adminSignInPage.php');
     exit();
@@ -80,7 +78,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
 
 $user_id = $_SESSION['user_id'];
 
-// Fetch admin details
 $query = "SELECT * FROM users WHERE user_id = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $user_id);
@@ -119,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // If changing password, validate it
+    // if changing password, validate
     if (!empty($new_password)) {
         if ($new_password !== $confirm_password) {
             echo "<script>
@@ -136,10 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
     } else {
-        $new_password_hashed = $admin['password_hash']; // Keep existing password
+        $new_password_hashed = $admin['password_hash']; 
     }
 
-    // Update query
     $update_query = "UPDATE users SET first_name = ?, last_name = ?, phone_number = ?, street_address = ?, city = ?, post_code = ?, admin_key = ?, password_hash = ? WHERE user_id = ?";
     $stmt = $con->prepare($update_query);
     $stmt->bind_param("ssssssssi", $new_first_name, $new_last_name, $new_phone, $new_address, $new_city, $new_post_code, $new_admin_key, $new_password_hashed, $user_id);
@@ -186,7 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="text" name="phone_number" value="<?= htmlspecialchars($admin['phone_number']); ?>">
 
                 <label for="street_address">Street Address:</label>
-                <input type="text" name="street_address" value="<?= htmlspecialchars($admin['street_address']); ?>" required>
+                <input type="text" name="street_address" value="<?= htmlspecialchars($admin['street_address']); ?>"
+                    required>
 
                 <label for="city">City:</label>
                 <input type="text" name="city" value="<?= htmlspecialchars($admin['city']); ?>">
@@ -209,6 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </section>
 </body>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; //footer ?>
 
 </html>
