@@ -23,8 +23,6 @@
         header('Location:homePage.php');
     }
 
-    // check that the form has been submitted, using POST to check for submit key. then assigns the values submitted to variables of the the same name to use in sql queries.
-// password hash hashes the password securely using PHPs built in password_hash() function
     if (isset($_POST["submit"])) {
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
@@ -38,7 +36,6 @@
         $admin_key = $_POST['admin_key'];
         $admin_code = $_POST['admin_code'];
 
-        // verify the email is not alerady used
         $verify_query = mysqli_query($con, "SELECT email FROM users WHERE email='$email'");
         if (mysqli_num_rows($verify_query) != 0) {
             echo '<script>
@@ -87,7 +84,6 @@
     }
     ?>
 
-    <!-- Admin registration form -->
     <div class="registration-container">
         <form class="register" id="registerForm" method="post">
             <h3>Create an Administrator account</h3>
