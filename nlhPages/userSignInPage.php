@@ -23,9 +23,7 @@ if (isset($_SESSION['user_id'])) {
 
     <body>
 
-        <!-- main content -->
         <div class="main-container">
-            <!-- left box: Sign in form -->
             <div class="left-box">
                 <h1 id="login-header">User Sign In</h1>
                 <form id="login-form" action="login.php" method="POST">
@@ -44,7 +42,6 @@ if (isset($_SESSION['user_id'])) {
                 </form>
             </div>
 
-            <!-- right box: image -->
             <div class="right-box">
                 <img src="../nlhImages/cat1.jpg" alt="Cat Image">
             </div>
