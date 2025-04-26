@@ -7,12 +7,11 @@
         margin: 0;
         padding: 0;
     }
-    
+
     section {
         padding-top: 0.7%;
     }
 
-    /*banner Styling */
     .banner {
         background-color: #f4ac6d;
         width: 101%;
@@ -23,14 +22,12 @@
         margin: -10px;
     }
 
-    /* logo Styling */
     .logo {
         width: 100%;
         max-height: 250px;
         object-fit: contain;
     }
 
-    /* navbar Styling */
     .header-nav {
         background-color: #f4ac6d;
         width: 101%;
@@ -41,7 +38,6 @@
         margin: -10px;
     }
 
-    /* navigation Bar */
     .navigation-bar {
         width: 90%;
         display: flex;
@@ -72,7 +68,6 @@
         border-radius: 5px;
     }
 
-    /* dropdown Styling */
     .CatCare,
     .AdminDropDown {
         position: relative;
@@ -132,9 +127,10 @@
         text-decoration: none;
         color: #f4ac6d !important;
     }
+
     button a:hover {
         text-decoration: none;
-        color:rgb(192, 132, 79) !important;
+        color: rgb(192, 132, 79) !important;
     }
 </style>
 
@@ -203,7 +199,7 @@
                     <nav class="AdminDropDown">
                         <a href="userAccountPage.php"><button class="dropbtn">Your Account</button></a>
                         <nav class="products-content">
-                            <a href="userEditAccountPage.php">Edit Your Account</a>
+                            <a href="userEditDetails.php">Edit Your Account</a>
                             <a href="userViewApplicationsPage.php">Your Adoption Applications</a>
                             <a href="userViewAppointmentsPage.php">Your Appointments</a>
                             <a href="userDonationHistoryPage.php">Your Donations</a>
