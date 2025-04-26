@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
 require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
-$users = []; // empty array to avoid errors if no data retrieved
+$users = [];
 
 // search and sorting
 $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
@@ -38,7 +38,7 @@ $query = "SELECT * FROM users
 $result = mysqli_query($con, $query);
 
 if ($result) {
-    $users = mysqli_fetch_all($result, MYSQLI_ASSOC); // fetch all rows as an associative array
+    $users = mysqli_fetch_all($result, MYSQLI_ASSOC); 
 } else {
     echo "Error fetching data: " . mysqli_error($con);
 }
@@ -49,8 +49,7 @@ if ($result) {
         <h1>User Database</h1>
     </section>
 
-    <section class="cat-database"> <!-- Changed class name to match the styling -->
-        <!-- search and sort form -->
+    <section class="cat-database">
         <form action="adminUserDatabasePage.php" method="get">
             <input type="text" name="search" class="search-bar"
                 value="<?= isset($search) && $search !== '' ? htmlspecialchars($search) : '' ?>"
