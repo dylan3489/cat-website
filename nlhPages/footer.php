@@ -1,43 +1,42 @@
 <style>
-.footer {
-            background-color: #f4ac6d;
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-        }
+    .footer {
+        background-color: #f4ac6d;
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+    }
 
-        .footer-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .footer-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        .footer-section img {
-            width: 250px;
-            margin-right: 30px;
-        }
+    .footer-section img {
+        width: 250px;
+        margin-right: 30px;
+    }
 
-        .footer-section .footer-text {
-            max-width: 800px;
-        }
+    .footer-section .footer-text {
+        max-width: 800px;
+    }
 
-        .footer-section .footer-text p {
-            margin: 10px 0;
-            line-height: 1.6;
-        }
+    .footer-section .footer-text p {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
 
-        .footer-section .footer-text a {
-            color: #735134;
-            text-decoration: none;
-        }
+    .footer-section .footer-text a {
+        color: #735134;
+        text-decoration: none;
+    }
 
-        .footer-section .footer-text a:hover {
-            text-decoration: underline;
-        }
-
+    .footer-section .footer-text a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <footer class="footer">
