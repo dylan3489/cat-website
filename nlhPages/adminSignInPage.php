@@ -17,13 +17,12 @@ require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
 
-// if the user is logged in, they are redirected
+// if user is logged in, they are redirected
 if (isset($_SESSION['user_id'])) {
     header('Location:homePage.php');
 } else { ?>
 
     <body>
-        <!-- main content -->
         <div class="content">
             <div class="login-container">
                 <h1 id="login-header">Administrator Sign In</h1>
@@ -36,7 +35,7 @@ if (isset($_SESSION['user_id'])) {
                     <input type="email" id="email" name="email" placeholder="Email" /><br><br>
                     <input type="password" id="password" name="password" placeholder="Password"><br><br>
                     <input type="admin_key" id="admin_key" name="admin_key" placeholder="Admin Key"><br><br>
-                    <a href="changePasswordAdminPage.php">Forgotten Password?</a><br><br>
+                    <a href="changePasswordPage.php">Forgotten Password?</a><br><br>
                     <input type="submit" id="login" name="login" value="Login">
                     <input type="button" value="Register" id="register" class="button"
                         onclick="location.href='adminSignUpPage.php';">
