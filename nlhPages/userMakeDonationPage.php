@@ -25,7 +25,7 @@ if (!isset($_SESSION['user_id'])) {
         Swal.fire({
             icon: "warning",
             title: "Sign In Required",
-            text: "Please sign in or create an account to apply to adopt!",
+            text: "Thank you for expressing interest in donating to us - however in order to accept any payments and to allow you keep track of your donations, you will need to create an account!",
             confirmButtonText: "Sign In",
             confirmButtonColor: "#f4ac6d",
             allowOutsideClick: false
@@ -44,7 +44,6 @@ if (!isset($_SESSION['user_id'])) {
         <img src="../nlhImages/background.jpg" alt="Background Image">
         <h1 class="page-title">Make a Donation</h1>
     </div>
-    <!-- donation form -->
     <div class="donation-form-container">
         <form class="donation-form" action="donation.php" method="POST">
             <h2>Support Our Mission</h2>
@@ -69,7 +68,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <script>
         window.onload = function () {
-            console.log(typeof Swal); // Logs 'object' if Swal is loaded correctly
+            console.log(typeof Swal);
         };
     </script>
 
