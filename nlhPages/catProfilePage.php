@@ -18,7 +18,6 @@ include 'navbar.php'; // banner and nav bar
 
 <body>
 <section class="cat-section">
-        <!-- left side: cat image -->
         <div class="cat-image">
             <?php
             $id = $_GET['id'];
@@ -33,7 +32,6 @@ include 'navbar.php'; // banner and nav bar
             ?>
         </div>
 
-        <!-- right side: cat details -->
         <div class="cat-details">
             <p><strong>Name:</strong> <?= $cat['cat_name']; ?></p>
             <p><strong>Breed:</strong> <?= $cat['breed']; ?></p>
@@ -42,12 +40,11 @@ include 'navbar.php'; // banner and nav bar
             <p><strong>Special Requirements:</strong> <?= $cat['special_requirements']; ?></p>
             <p><strong>Description:</strong> <?= $cat['cat_description']; ?></p>
             <p><strong>Status:</strong> 
-                <span style="color: <?= ($cat['adoption_status'] == 'Adopted') ? 'red' : 'white'; ?>;">
-                    <?= ($cat['adoption_status'] == 'Adopted') ? 'Adopted' : 'Available for Adoption'; ?>
+                <span style="color: <?= ($cat['adoption_status'] == 'adopted') ? 'red' : 'white'; ?>;">
+                    <?= ($cat['adoption_status'] == 'adopted') ? 'Adopted' : 'Available for Adoption'; ?>
                 </span>
             </p>
 
-            <!-- adoption & sponsorship Buttons -->
             <?php if ($cat['adoption_status'] !== 'Adopted') : ?>
                 <div class="cat-actions">
                     <form method="post" action="applyForAdoptionPage.php" class="apply-button">
@@ -67,8 +64,9 @@ include 'navbar.php'; // banner and nav bar
         <div class="aftercare-title">Aftercare Information</div>
         <div class="aftercare-text">
             <p>After adopting or sponsoring a cat, it is important to provide proper care and attention. Ensure you have
-                all the necessary supplies and stay informed about veterinary appointments. Feel free to reach out to us
-                if you need advice or resources.</p>
+                all the necessary supplies and stay informed about veterinary appointments. We have some helpful information available in our <a href="catCarePage.php">Cat Care section</a>, 
+                and a member of our team will be happy to assist if you want to send us a <a href="contactUsPage.php">contact request</a> for advice or further resources. 
+            </p>
         </div>
     </section>
 </body>
