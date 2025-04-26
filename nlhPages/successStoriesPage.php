@@ -36,7 +36,6 @@ mysqli_close($con);
     </section>
 
     <?php if (count($stories) >= 3): ?>
-        <!-- first story-->
         <section class="story-block bg-1">
             <img src="../nlhImages/<?php echo $stories[0]['after_image_url']; ?>.jpg"
                 alt="<?php echo $stories[0]['cat_name']; ?>" class="story-image">
@@ -46,7 +45,6 @@ mysqli_close($con);
             </div>
         </section>
 
-        <!-- second story -->
         <section class="story-block bg-2 right">
             <div class="story-text">
                 <h3><?php echo $stories[1]['cat_name']; ?></h3>
@@ -56,7 +54,6 @@ mysqli_close($con);
                 alt="<?php echo $stories[1]['cat_name']; ?>" class="story-image">
         </section>
 
-        <!-- third story -->
         <section class="story-block bg-3">
             <img src="../nlhImages/<?php echo $stories[2]['after_image_url']; ?>.jpg"
                 alt="<?php echo $stories[2]['cat_name']; ?>" class="story-image">
