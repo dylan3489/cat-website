@@ -18,12 +18,11 @@ include 'navbar.php'; // banner and nav bar
 
 
 // if the user is not logged in, redirect to sign in page
-if(!isset($_SESSION['user_id'])){
+if (!isset($_SESSION['user_id'])) {
     header("Location: userSignInPage.php");
     exit();
 }
 
-// fetch user details from the database
 $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM users WHERE user_id = '$user_id'";
 $result = mysqli_query($con, $query);
@@ -35,7 +34,6 @@ $user = mysqli_fetch_assoc($result);
         <h1>Your Account</h1>
     </section>
 
-    <!-- user account details with two boxes -->
     <section class="account-details-section">
         <div class="account-box-left">
             <h2>Account Information</h2>
