@@ -6,7 +6,7 @@
     <title>Sign In - Nine Lives Haven</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <?php
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['admin_status'] = $user['admin_status'];
                 $_SESSION['loggedin'] = true;
-                
+
                 echo '<script>
                 window.onload = function() {
                     Swal.fire({
@@ -87,4 +87,5 @@ if ($stmt instanceof mysqli_stmt) {
 }
 $con->close();
 ?>
+
 </html>
