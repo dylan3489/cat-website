@@ -64,7 +64,7 @@
 .aftercare-section {
     background-color: #735134;
     padding: 0px;
-    padding-bottom: 4%;
+    padding-bottom: 2%;
     text-align: center;
 }
 
@@ -74,12 +74,25 @@
     background-color: #f4ac6d;
     color: white;
     padding: 20px;
+
 }
 
 .aftercare-text {
     max-width: 85%;
     margin: 0 auto;
-    text-align: left;
-    padding-bottom: 20%;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 1% 1% 1% 1%;
     background-color: white;
+    border-radius: 8px;
+}
+
+.aftercare-text a {
+    color: #c35721;
+    text-decoration: none;
+}
+
+.aftercare-text a:hover {
+    text-decoration: underline;
+
 }

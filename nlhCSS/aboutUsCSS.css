@@ -1,0 +1,101 @@
+.intro-section {
+    position: relative;
+    text-align: center;
+}
+
+.intro-section img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+
+.intro-section .intro-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(96, 58, 32, 0.81);
+    padding: 20px 0 45px;
+    border-radius: 8px;
+    width: 70%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.intro-section .intro-text h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.intro-section .intro-text p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.goals-section {
+    padding: 30px 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.goals-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #000000;
+}
+
+.goal-item {
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+    text-align: center;
+    background-color: #f4ac6d;
+    border-radius: 8px;
+}
+
+.goal-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.goal-item h3 {
+    font-size: 1.5rem;
+    margin: 15px 0;
+    color: #ffffff;
+
+}
+
+.goal-item p {
+    font-size: 1rem;
+    color: #000000;
+}
+
+.involved-section {
+    padding: 20px 20px 10px;
+    margin-bottom: 4%;
+    background-color: #fff0e0;
+    text-align: center;
+}
+
+.involved-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.involved-section p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.involved-section a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #735134;
+    text-decoration: none;
+}
+
+.involved-section a:hover {
+    text-decoration: underline;
+}

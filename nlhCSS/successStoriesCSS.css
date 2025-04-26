@@ -1,14 +1,18 @@
 .stories-intro {
-    padding: 30px 20px 80px;
+    padding: 10px 10px 40px 10px;
     margin-top: 0.7%;
-    background-color: #c35721;
-    color: white;
+    color: #c35721;
     text-align: center;
 }
 
 .stories-intro h1 {
     font-size: 2.5em;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.stories-intro p {
+    color: #ffffff;
+
 }
 
 .intro-box {
@@ -17,7 +21,7 @@
     font-size: 1.2em;
     line-height: 1.5;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(240, 141, 65, 0.862);
     border-radius: 10px;
 }
 
@@ -38,7 +42,7 @@
 }
 
 .bg-2 {
-    background-color:rgb(255, 243, 243);
+    background-color: rgb(255, 243, 243);
 }
 
 .bg-3 {
@@ -54,6 +58,7 @@
 .bg-3 .story-text h3 {
     color: white;
 }
+
 .story-text {
     flex: 1;
     max-width: 500px;

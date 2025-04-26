@@ -1,8 +1,9 @@
 .page-header {
-    background-color: #6D4C41;
+    
+    background-color: rgba(96, 58, 32, 0.81);
     color: white;
     text-align: center;
-    padding: 40px 20px;
+    padding: 30px 20px;
     margin-top:0.7%;
 }
 
@@ -40,7 +41,7 @@ input, select, textarea {
 }
 
 input[type="submit"] {
-    background-color: #6D4C41;
+    background-color: #c35721;
     color: white;
     cursor: pointer;
     border: none;
@@ -50,7 +51,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #5C4031;
+    background-color: #c35721b0;
 }
 
 textarea {

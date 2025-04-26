@@ -9,7 +9,7 @@
     height: 30%;
     max-height: 300px;
     object-fit: cover;
-    padding-top:0.7%;
+    padding-top: 0.7%;
 }
 
 .page-title {
@@ -37,8 +37,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 50%;
-    max-width: 900px; 
-    min-width: 400px; 
+    max-width: 900px;
+    min-width: 400px;
     text-align: center;
 }
 
@@ -59,6 +59,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 .registration-table input[type="submit"] {
     background-color: #c35721;
     color: white;
@@ -67,7 +68,7 @@
 }
 
 .registration-table input[type="submit"]:hover {
-    background-color:rgba(195, 87, 33, 0.86);
+    background-color: rgba(195, 87, 33, 0.86);
 }
 
 .admin-link {
