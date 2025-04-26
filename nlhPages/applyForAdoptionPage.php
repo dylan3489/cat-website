@@ -19,17 +19,14 @@ include 'navbar.php'; // banner and nav bar
 
 // retrieve the cat ID from the URL query parameter
 $id = $_POST['cat_id'];
-// query to fetch cat details based on the cat ID, protect against SQL injection
-// execute query
 $query = "SELECT cat_id, cat_name FROM cats WHERE cat_id = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("s", $id);
 $stmt->execute();
-// get the results of query and fetch data as an associative array
 $result = $stmt->get_result();
 $cat = $result->fetch_assoc();
 
-$cat_name = $cat['cat_name'];  // Store the cat's name
+$cat_name = $cat['cat_name'];
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitted']) && $_POST['submitted'] == 1 && isset($_POST['cat_id'])) {
@@ -40,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitted']) && $_POS
         understood_responsibility, accuracy_confirm, home_visit_permission, understood_terms
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    // bind parameters
     $stmt->bind_param(
         "iiissississsssssssssssssss",
         $_SESSION['user_id'],
@@ -242,6 +238,6 @@ if (!isset($_SESSION['user_id'])) {
 </body>
 
 
-<?php include 'footer.php'; // footer ?> 
+<?php include 'footer.php'; // footer ?>
 
 </html>
