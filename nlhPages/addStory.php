@@ -8,76 +8,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-.add-story-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
+        .add-story-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
 
-h2 {
-    text-align: center;
-    color: #8B5E3C;
-}
+        h2 {
+            text-align: center;
+            color: #8B5E3C;
+        }
 
-label {
-    font-weight: bold;
-    display: block;
-    margin-top: 10px;
-}
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
 
-input, textarea, select {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-.add-story-container button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #f4ac6d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 15px;
-}
+        .add-story-container button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #f4ac6d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
 
-.add-story-container button:hover {
-    background-color: rgb(211, 133, 64);
-}
+        .add-story-container button:hover {
+            background-color: rgb(211, 133, 64);
+        }
 
-.form-row {
-    display: flex;
-    justify-content: space-between; 
-    gap: 20px; 
-    margin-bottom: 20px;
-}
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
 
-.form-column {
-    flex: 1; 
-}
+        .form-column {
+            flex: 1;
+        }
 
-/* making fields other than user and cat as vertical layout */
-textarea, input[type="text"] {
-    margin-top: 15px;
-}
+        /* making fields other than user and cat as vertical layout */
+        textarea,
+        input[type="text"] {
+            margin-top: 15px;
+        }
 
-label {
-    margin-top: 20px; 
-}
-</style>
+        label {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <?php
 session_start();
 require 'connectdb.php';
-include 'navbar.php'; 
+include 'navbar.php'; // banner and nav
 
 if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
     header('Location: adminSignInPage.php');
@@ -112,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $query = "INSERT INTO success_stories (user_id, cat_id, story_text, before_image_url, after_image_url) 
                   VALUES (?, ?, ?, ?, ?)";
-        
+
         $stmt = $con->prepare($query);
         $stmt->bind_param("iisss", $user_id, $cat_id, $story_text, $before_image_url, $after_image_url);
 
@@ -187,4 +190,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; // footer ?>
