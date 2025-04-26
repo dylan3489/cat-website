@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
 require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
-$sponsorships = []; // empty array to avoid errors if no data is retrieved
+$sponsorships = [];
 
 // search and sorting
 $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
@@ -42,7 +42,7 @@ $query = "SELECT s.sponsorship_id, s.user_id, s.cat_id, s.sponsorship_amount, s.
 $result = mysqli_query($con, $query);
 
 if ($result) {
-    $sponsorships = mysqli_fetch_all($result, MYSQLI_ASSOC); // fetch all rows as an associative array
+    $sponsorships = mysqli_fetch_all($result, MYSQLI_ASSOC); 
 } else {
     echo "Error fetching data: " . mysqli_error($con);
 }
@@ -54,7 +54,6 @@ if ($result) {
     </section>
 
     <section>
-        <!-- search and sort form inside sponsorship-table container -->
         <div class="sponsorship-table">
             <form action="adminSponsorshipDatabasePage.php" method="get" class="search-form">
                 <input type="text" name="search" class="search-bar"
