@@ -29,7 +29,7 @@ $sort = isset($_GET['sort']) && in_array($_GET['sort'], ['appointment_date', 'fi
 $order = isset($_GET['order']) && in_array($_GET['order'], ['asc', 'desc'])
     ? mysqli_real_escape_string($con, $_GET['order']) : 'desc';
 
-// fetch applications with search/filter applied, as well as linking other tables
+// fetch applications with search/filter applied, link other tables
 $query = "
     SELECT 
         a.appointment_id,
@@ -76,7 +76,8 @@ $appointments = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     <section class="appointments-database">
         <form method="get" action="">
-            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search applications...">
+            <input type="text" name="search" value="<?= htmlspecialchars($search) ?>"
+                placeholder="Search applications...">
             <select name="sort">
                 <option value="appointment_date" <?= $sort === 'appointment_date' ? 'selected' : '' ?>>Appointment Date
                 </option>
@@ -126,7 +127,8 @@ $appointments = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         <td><?= htmlspecialchars($appointment['adoption_status']) ?></td>
                         <td>
                             <form action="editAppointmentDetails.php" method="get">
-                                <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['appointment_id']) ?>">
+                                <input type="hidden" name="appointment_id"
+                                    value="<?= htmlspecialchars($appointment['appointment_id']) ?>">
                                 <button type="submit" class="edit-btn">Edit</button>
                             </form>
                         </td>
