@@ -28,7 +28,8 @@
             margin-top: 10px;
         }
 
-        input, textarea {
+        input,
+        textarea {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
@@ -77,22 +78,19 @@ session_start();
 require 'connectdb.php';
 include 'navbar.php';
 
-// Verify admin is logged in
+// check if admin is logged in
 if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
     header('Location: adminSignInPage.php');
     exit();
 }
 
-// Check if story_id is provided
 if (isset($_GET['story_id'])) {
     $story_id = mysqli_real_escape_string($con, $_GET['story_id']);
 
-    // Fetch success story details 
     $query = "SELECT * FROM success_stories WHERE story_id = '$story_id'";
     $result = mysqli_query($con, $query);
     $story = mysqli_fetch_assoc($result);
 
-    // If the story is not found, show an error popup
     if (!$story) {
         echo "<script>
                 Swal.fire({
@@ -120,7 +118,6 @@ if (isset($_GET['story_id'])) {
     exit();
 }
 
-// Handle form submission for updating story
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $story_id = mysqli_real_escape_string($con, $_POST['story_id']);
     $story_text = mysqli_real_escape_string($con, $_POST['story_text']);
@@ -132,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
                         before_image_url = ?, 
                         after_image_url = ? 
                      WHERE story_id = ?";
-    
+
     $stmt = $con->prepare($update_query);
     $stmt->bind_param("sssi", $story_text, $before_image_url, $after_image_url, $story_id);
 
@@ -161,11 +158,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     }
 }
 
-// Handle story deletion
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     $story_id = mysqli_real_escape_string($con, $_POST['story_id']);
 
-    // Delete story from database
     $delete_query = "DELETE FROM success_stories WHERE story_id = ?";
     $stmt = $con->prepare($delete_query);
     $stmt->bind_param("i", $story_id);
@@ -200,7 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     <div class="edit-story-container">
         <h2>Edit Success Story</h2>
         <form action="" method="post">
-            <!-- Hidden field to retain story_id -->
+            <!-- hidden to retain story_id -->
             <input type="hidden" name="story_id" value="<?= htmlspecialchars($story['story_id']) ?>">
 
             <label>User ID:</label>
@@ -221,7 +216,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
             <button type="submit" name="update">Update</button>
         </form>
 
-        <!-- Delete form -->
+        <!-- delete -->
         <form action="" method="post" id="deleteForm" style="margin-top: 20px;">
             <input type="hidden" name="story_id" value="<?= htmlspecialchars($story['story_id']) ?>">
             <button type="submit" name="delete" id="deleteButton">Delete Story</button>
