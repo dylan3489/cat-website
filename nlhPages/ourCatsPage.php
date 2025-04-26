@@ -17,7 +17,7 @@ session_start();
 require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
-$cats = []; // empty array to avoid errors if no data is retrieved.
+$cats = [];
 
 $cats_per_page = 16;
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -33,12 +33,12 @@ $query = "SELECT * FROM cats WHERE cat_name LIKE '%$search%' ORDER BY $sort $ord
 $result = mysqli_query($con, $query);
 
 if ($result) {
-    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC); // fetch all rows as an associative array
+    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
 } else {
     echo "Error fetching data: " . mysqli_error($con);
 }
 
-// total number of cats for pagination
+// total number of cats for page
 $total_query = "SELECT COUNT(*) as total FROM cats WHERE cat_name LIKE '%$search%'";
 $total_result = mysqli_query($con, $total_query);
 $total_cats = mysqli_fetch_assoc($total_result)['total'];
@@ -47,17 +47,22 @@ $total_pages = ceil($total_cats / $cats_per_page);
 
 <body>
     <section class="intro-section">
+        <img src="../nlhImages/catplay6.jpg" alt="About Us Background">
+
         <div class="intro-text">
-            <h1>Take a look at our feline friends searching for a home </h1>
-            <p>All of our friends are in need of a warm and supportive home - each with their own curious personalities
-                and quirks!<br>
-                Take a look below to see these little guys and what kind of life they need - and if they'd fit with you!
+            <h1>Our Cats</h1>
+            <p>These guys are what we are here for, and hopefully this page will show you everything you need to know
+                about each of our feline friends. <br> <br>
+                All of them are in need of a warm and supportive home - and each come with their own curious
+                personalities and quirks! <br> <br>
+                Some have had difficult lives, and will need extra love and care.<br> <br>
+                Take a look below to see who we are housing and what kind of life they need - and if they'd fit with
+                you!
             </p>
         </div>
     </section>
 
     <section class="cat-profiles">
-        <h1 id="cats-header">Our Cats</h1><br>
         <section class="content">
             <form action="ourCatsPage.php" method="get">
                 <select name="sort">
@@ -84,7 +89,6 @@ $total_pages = ceil($total_cats / $cats_per_page);
                     <a href="catProfilePage.php?id=<?php echo $cat['cat_id']; ?>">
                         <img src="../nlhImages/<?php echo $cat['image_url']; ?>.jpg" alt="<?php echo $cat['cat_name']; ?>">
                     </a>
-                    <!-- Cat information box -->
                     <div class="cat-info">
                         <p><span>Name:</span> <?php echo $cat['cat_name']; ?></p>
                         <p><span>Breed:</span> <?php echo $cat['breed']; ?></p>
