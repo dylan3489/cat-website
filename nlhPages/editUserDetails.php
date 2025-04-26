@@ -28,7 +28,8 @@
             margin-top: 10px;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
@@ -57,7 +58,7 @@
 <?php
 session_start();
 require 'connectdb.php';
-include 'navbar.php';
+include 'navbar.php'; // banner and nav bar
 
 if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
     header('Location: adminSignInPage.php');
@@ -89,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $street_address = mysqli_real_escape_string($con, $_POST['street_address']);
     $city = mysqli_real_escape_string($con, $_POST['city']);
     $post_code = mysqli_real_escape_string($con, $_POST['post_code']);
-        
+
     if (empty($message)) {
         $update_query = "UPDATE users SET 
                             first_name = ?, 
@@ -162,6 +163,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; // footer ?>
 
 </html>
