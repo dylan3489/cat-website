@@ -22,10 +22,8 @@ if (!isset($_SESSION['user_id'])) {
 require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
-// fetch user id from session
 $user_id = $_SESSION['user_id'];
 
-// fetch adoption application details for user
 $query = "
     SELECT 
         adoption_applications.application_id, 
@@ -52,32 +50,32 @@ $result = mysqli_query($con, $query);
         </p>
     </section>
 
-    <!-- applications table -->
     <section>
-    <?php if (mysqli_num_rows($result) > 0) { ?>
-        <table class="applications-table">
-            <thead>
-                <tr>
-                    <th>Application ID</th>
-                    <th>Cat Name</th>
-                    <th>Status</th>
-                    <th>Application Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+        <?php if (mysqli_num_rows($result) > 0) { ?>
+            <table class="applications-table">
+                <thead>
                     <tr>
-                        <td><?= htmlspecialchars($row['application_id']); ?></td>
-                        <td><?= htmlspecialchars($row['cat_name']); ?></td>
-                        <td><?= htmlspecialchars($row['application_status']); ?></td>
-                        <td><?= htmlspecialchars($row['application_date']); ?></td>
+                        <th>Application ID</th>
+                        <th>Cat Name</th>
+                        <th>Status</th>
+                        <th>Application Date</th>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['application_id']); ?></td>
+                            <td><?= htmlspecialchars($row['cat_name']); ?></td>
+                            <td><?= htmlspecialchars($row['application_status']); ?></td>
+                            <td><?= htmlspecialchars($row['application_date']); ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         <?php } else { ?>
             <div class="no-data">
-                <p>No adoption applications found. Start your journey by visiting <a href="ourCatsPage.php">Our Cats</a>!</p>
+                <p>No adoption applications found. Start your journey by visiting <a href="ourCatsPage.php">Our Cats</a>!
+                </p>
             </div>
         <?php } ?>
     </section>
