@@ -28,7 +28,9 @@
             margin-top: 10px;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
@@ -77,7 +79,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
 $appointment = null;
 $message = '';
 
-// fetch appointment details
 if (isset($_GET['appointment_id'])) {
     $appointment_id = mysqli_real_escape_string($con, $_GET['appointment_id']);
     $query = "SELECT * FROM appointments WHERE appointment_id = '$appointment_id'";
@@ -97,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vet_name = mysqli_real_escape_string($con, $_POST['vet_name']);
     $status = mysqli_real_escape_string($con, $_POST['status']);
     $notes = mysqli_real_escape_string($con, $_POST['notes']);
-    
+
     if (empty($message)) {
         $update_query = "UPDATE appointments SET 
                             appointment_date = ?, 
@@ -141,7 +142,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['appointment_id']); ?>">
 
             <label for="appointment_date">Appointment Date:</label>
-            <input type="datetime-local" name="appointment_date" value="<?= htmlspecialchars(date('Y-m-d\TH:i', strtotime($appointment['appointment_date']))); ?>" required>
+            <input type="datetime-local" name="appointment_date"
+                value="<?= htmlspecialchars(date('Y-m-d\TH:i', strtotime($appointment['appointment_date']))); ?>"
+                required>
 
             <label for="vet_name">Vet Name:</label>
             <input type="text" name="vet_name" value="<?= htmlspecialchars($appointment['vet_name']); ?>">
@@ -149,9 +152,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="status">Status:</label>
             <select name="status">
                 <option value="pending" <?= $appointment['status'] == 'pending' ? 'selected' : ''; ?>>Pending</option>
-                <option value="scheduled" <?= $appointment['status'] == 'scheduled' ? 'selected' : ''; ?>>Scheduled</option>
-                <option value="completed" <?= $appointment['status'] == 'completed' ? 'selected' : ''; ?>>Completed</option>
-                <option value="cancelled" <?= $appointment['status'] == 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
+                <option value="scheduled" <?= $appointment['status'] == 'scheduled' ? 'selected' : ''; ?>>Scheduled
+                </option>
+                <option value="completed" <?= $appointment['status'] == 'completed' ? 'selected' : ''; ?>>Completed
+                </option>
+                <option value="cancelled" <?= $appointment['status'] == 'cancelled' ? 'selected' : ''; ?>>Cancelled
+                </option>
             </select>
 
             <label for="notes">Appointment Notes:</label>
