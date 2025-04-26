@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +28,8 @@
             margin-top: 10px;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
@@ -53,13 +53,14 @@
             background-color: rgb(211, 133, 64);
         }
 
-        input[readonly], select[readonly] {
+        input[readonly],
+        select[readonly] {
             background-color: #f9f9f9;
             cursor: not-allowed;
         }
     </style>
     <script>
-        // JS toggles the renewal date visibility
+        // JS toggles renewal date 
         function toggleRenewalDate() {
             const sponsorshipType = document.querySelector('select[name="sponsorship_type"]').value;
             const renewalDateField = document.getElementById('renewal_date_field');
@@ -164,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     });
                   </script>";
         }
-        
+
     }
 }
 ?>
@@ -179,13 +180,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="hidden" name="sponsorship_id" value="<?= htmlspecialchars($sponsorship['sponsorship_id']); ?>">
 
             <label for="user_id">User Name:</label>
-            <input type="text" value="<?= htmlspecialchars($sponsorship['first_name'] . ' ' . $sponsorship['last_name']); ?>" readonly>
+            <input type="text"
+                value="<?= htmlspecialchars($sponsorship['first_name'] . ' ' . $sponsorship['last_name']); ?>" readonly>
 
             <label for="cat_id">Cat Name:</label>
             <input type="text" value="<?= htmlspecialchars($sponsorship['cat_name']); ?>" readonly>
 
             <label for="sponsorship_amount">Sponsorship Amount (£):</label>
-            <input type="number" step="0.01" name="sponsorship_amount" value="<?= htmlspecialchars($sponsorship['sponsorship_amount']); ?>" required>
+            <input type="number" step="0.01" name="sponsorship_amount"
+                value="<?= htmlspecialchars($sponsorship['sponsorship_amount']); ?>" required>
 
             <label for="status">Status:</label>
             <select name="status" required>
@@ -197,11 +200,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <label for="sponsorship_type">Sponsorship Type:</label>
             <select name="sponsorship_type" required onchange="toggleRenewalDate()">
-                <option value="one-time" <?= $sponsorship['sponsorship_type'] == 'one-time' ? 'selected' : ''; ?>>One-time</option>
-                <option value="recurring" <?= $sponsorship['sponsorship_type'] == 'recurring' ? 'selected' : ''; ?>>Recurring</option>
+                <option value="one-time" <?= $sponsorship['sponsorship_type'] == 'one-time' ? 'selected' : ''; ?>>One-time
+                </option>
+                <option value="recurring" <?= $sponsorship['sponsorship_type'] == 'recurring' ? 'selected' : ''; ?>>
+                    Recurring</option>
             </select>
 
-            <div id="renewal_date_field" style="display: <?= $sponsorship['sponsorship_type'] == 'recurring' ? 'block' : 'none'; ?>;">
+            <div id="renewal_date_field"
+                style="display: <?= $sponsorship['sponsorship_type'] == 'recurring' ? 'block' : 'none'; ?>;">
                 <label for="renewal_date">Renewal Date:</label>
                 <input type="date" name="renewal_date" value="<?= htmlspecialchars($sponsorship['renewal_date']); ?>">
             </div>
