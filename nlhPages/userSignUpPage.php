@@ -22,8 +22,6 @@ if (isset($_SESSION['user_id'])) {
     header('Location:hom Page.php');
 }
 
-// check that the form has been submitted, using POST to check for submit key. then assigns the values submitted to variables of the the same name to use in sql queries.
-// password hash hashes the password securely using PHPs built in password_hash() function
 if (isset($_POST["submit"])) {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
@@ -35,7 +33,6 @@ if (isset($_POST["submit"])) {
     $city = $_POST['city'];
     $post_code = $_POST['post_code'];
 
-    // verify the email is not alerady used
     $verify_query = mysqli_query($con, "SELECT email FROM users WHERE email='$email'");
     if (mysqli_num_rows($verify_query) != 0) {
         echo '<script>
@@ -52,7 +49,7 @@ if (isset($_POST["submit"])) {
     } else {
         mysqli_query($con, "INSERT INTO users (first_name, last_name, date_of_birth, email, password_hash, phone_number, street_address, city, post_code, admin_status) 
         VALUES ('$first_name', '$last_name', '$date_of_birth', '$email', '$password_hash', '$phone_number', '$street_address', '$city', '$post_code', 0)") or die("Error Occurred");
-        
+
         echo '<script>
             Swal.fire({
                 icon: "success",
@@ -67,7 +64,7 @@ if (isset($_POST["submit"])) {
         exit();
     }
 } else {
-?>
+    ?>
 
     <body>
         <div class="page-header">
@@ -75,7 +72,6 @@ if (isset($_POST["submit"])) {
             <h1 class="page-title">User Sign Up</h1>
         </div>
 
-        <!-- user registration form -->
         <section class="registration-container">
             <form class="register" id="registerForm" method="post">
                 <div class="content">
