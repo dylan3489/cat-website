@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-
-
         .edit-account-container {
             max-width: 600px;
             margin: 50px auto;
@@ -51,10 +49,10 @@
         }
 
         .edit-account-container button:hover {
-            background-color:rgb(211, 133, 64);
+            background-color: rgb(211, 133, 64);
         }
 
-        
+
         .swal2-styled.swal2-confirm {
             background-color: #f4ac6d !important;
             color: white !important;
@@ -79,7 +77,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// fetch user details
 $query = "SELECT * FROM users WHERE user_id = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $user_id);
@@ -103,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $new_password = $_POST['new_password'] ?? null;
     $confirm_password = $_POST['confirm_password'] ?? null;
 
-    // verify current password
     if (!password_verify($current_password, $user['password_hash'])) {
         echo "<script>
                 Swal.fire({
@@ -135,10 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
     } else {
-        $new_password_hashed = $user['password_hash']; 
+        $new_password_hashed = $user['password_hash'];
     }
 
-    // update query
     $update_query = "UPDATE users SET first_name = ?, last_name = ?, phone_number = ?, email = ?, street_address = ?, city = ?, post_code = ?, password_hash = ? WHERE user_id = ?";
     $stmt = $con->prepare($update_query);
     $stmt->bind_param("ssssssssi", $new_first_name, $new_last_name, $new_phone, $new_email, $new_address, $new_city, $new_post_code, $new_password_hashed, $user_id);
@@ -182,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <label for="phone_number">Phone Number:</label>
             <input type="text" name="phone_number" value="<?= htmlspecialchars($user['phone_number']); ?>">
-            
+
             <label for="phone_number">Email:</label>
             <input type="text" name="email" value="<?= htmlspecialchars($user['email']); ?>" required>
 
