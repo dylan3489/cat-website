@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Edit Cat Details - Nine Lives Haven</title>
@@ -27,7 +28,8 @@
             margin-top: 10px;
         }
 
-        input, textarea {
+        input,
+        textarea {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
@@ -48,7 +50,7 @@
         }
 
         .edit-cat-container button:hover {
-            background-color:rgb(211, 133, 64);
+            background-color: rgb(211, 133, 64);
         }
 
         .swal2-styled.swal2-confirm {
@@ -76,7 +78,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
 $cat = null;
 $message = '';
 
-// fetch cat details
 if (isset($_GET['cat_id'])) {
     $cat_id = mysqli_real_escape_string($con, $_GET['cat_id']);
     $query = "SELECT * FROM cats WHERE cat_id = '$cat_id'";
@@ -99,34 +100,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cat_description = mysqli_real_escape_string($con, $_POST['cat_description']);
     $adoption_status = mysqli_real_escape_string($con, $_POST['adoption_status']);
     $special_requirements = mysqli_real_escape_string($con, $_POST['special_requirements']);
-    $image_url = $cat['image_url']; // Keep existing image by default
+    $image_url = $cat['image_url'];
 
-// new image upload
-if (!empty($_FILES['image']['name'])) {
-    $target_dir = "../nlhImages/";
-    $image_name = basename($_FILES["image"]["name"]);
-    $target_file = $target_dir . $image_name;
+    if (!empty($_FILES['image']['name'])) {
+        $target_dir = "../nlhImages/";
+        $image_name = basename($_FILES["image"]["name"]);
+        $target_file = $target_dir . $image_name;
 
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
 
-    if (in_array($imageFileType, $allowed_types)) {
-        // remove the file extension from the image name
-        $image_name_without_extension = pathinfo($image_name, PATHINFO_FILENAME);
+        if (in_array($imageFileType, $allowed_types)) {
+            // remove the file extension from the image name
+            $image_name_without_extension = pathinfo($image_name, PATHINFO_FILENAME);
 
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            // save image without the extension
-            $image_url = $image_name_without_extension;
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $image_url = $image_name_without_extension;
+            } else {
+                $message = "Error uploading image.";
+            }
         } else {
-            $message = "Error uploading image.";
+            $message = "Invalid image format (JPG, JPEG, PNG, GIF only).";
         }
-    } else {
-        $message = "Invalid image format (JPG, JPEG, PNG, GIF only).";
     }
-}
 
-
-    // update the database
     if (empty($message)) {
         $update_query = "UPDATE cats SET cat_name = ?, breed = ?, cat_age = ?, cat_health = ?, cat_description = ?, image_url = ?, adoption_status = ?, special_requirements = ? WHERE cat_id = ?";
         $stmt = $con->prepare($update_query);
@@ -189,12 +186,14 @@ if (!empty($_FILES['image']['name'])) {
 
             <label for="adoption_status">Adoption Status:</label>
             <select name="adoption_status">
-                <option value="available" <?= $cat['adoption_status'] == 'available' ? 'selected' : ''; ?>>Available</option>
+                <option value="available" <?= $cat['adoption_status'] == 'available' ? 'selected' : ''; ?>>Available
+                </option>
                 <option value="adopted" <?= $cat['adoption_status'] == 'adopted' ? 'selected' : ''; ?>>Adopted</option>
             </select>
 
             <label for="special_requirements">Special Requirements:</label>
-            <textarea name="special_requirements" required><?= htmlspecialchars($cat['special_requirements']); ?></textarea>
+            <textarea name="special_requirements"
+                required><?= htmlspecialchars($cat['special_requirements']); ?></textarea>
 
             <label for="image">Cat Image (optional):</label>
             <input type="file" name="image">
