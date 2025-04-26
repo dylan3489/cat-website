@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['admin_status'] != 1) {
 require 'connectdb.php';
 include 'navbar.php'; // banner and nav bar
 
-$donations = []; // empty array to avoid errors if no data is retrieved
+$donations = [];
 
 // search and sorting
 $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
@@ -53,7 +53,6 @@ if ($result) {
     </section>
 
     <section class="donations-database">
-        <!-- search and sort form -->
         <form action="adminDonationsDatabasePage.php" method="get">
             <input type="text" name="search" class="search-bar"
                 value="<?= isset($search) && $search !== '' ? htmlspecialchars($search) : '' ?>"
@@ -70,6 +69,7 @@ if ($result) {
             </select>
             <input type="submit" value="Search">
         </form>
+
 
         <table>
             <thead>
