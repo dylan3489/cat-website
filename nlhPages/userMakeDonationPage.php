@@ -48,7 +48,7 @@ if (!isset($_SESSION['user_id'])) {
         <form class="donation-form" action="donation.php" method="POST">
             <h2>Support Our Mission</h2>
             <label for="amount">Donation Amount (£):</label>
-            <input type="number" id="amount" name="amount" step="0.01" min="0.01" required>
+            <input type="number" id="amount" name="amount" step="1.00" min="1.00" required>
 
             <label for="message">Message (optional):</label>
             <textarea id="message" name="message" rows="4" placeholder="Write a message..."></textarea>
